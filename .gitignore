@@ -1,0 +1,26 @@
+# ---- Simulation / Verilator ----
+obj_dir/
+sim_build/
+*.vcd
+*.fst
+*.fst.hier
+*.gtkw
+results.xml
+dump.vcd
+# ---- cocotb / Python ----
+__pycache__/
+*.pyc
+.pytest_cache/
+# ---- Synthesis (Yosys) outputs ----
+syn/out/
+# ---- STA (OpenSTA) outputs ----
+sta/out/
+# ---- Generated reports/logs ----
+*.log
+*.rpt
+build/
+# ---- Editor / OS ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
