@@ -19,6 +19,8 @@ sta/out/
 *.log
 *.rpt
 build/
+build_*/
+obj_dir/
 # ---- Editor / OS ----
 .vscode/
 .idea/
