@@ -1,0 +1,870 @@
+<meta name="dash-one-writer">
+<meta name="dash-form" content="dashboard">
+<style>
+.ql { display: grid; gap: var(--cds-gap-xl); color: var(--color-fg); font-family: var(--font-anthropic-sans); font-variant-numeric: tabular-nums; }
+.ql p { margin: 0; line-height: 1.55; max-width: 70ch; }
+.ql-head { display: grid; gap: var(--cds-gap-sm); }
+.ql-eyebrow { font-size: var(--cds-font-size-caption); letter-spacing: .07em; text-transform: uppercase; color: var(--color-fg-muted); margin: 0; }
+.ql-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.15; margin: 0; text-wrap: balance; }
+.ql-lede { font-size: var(--cds-font-size-heading); line-height: 1.45; text-wrap: pretty; }
+.ql-sec { display: grid; gap: var(--cds-gap-md); scroll-margin-top: 12px; min-width: 0; }
+.ql-sec > h2, .ql h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.ql h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.ql-cap { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.45; }
+.ql-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.ql-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: var(--cds-gap-md); }
+.ql-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--cds-gap-md); align-items: start; }
+.ql-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.1; }
+.ql-chart { position: relative; min-width: 0; }
+.ql-chart svg { display: block; overflow: visible; }
+.ql-tablewrap { overflow-x: auto; min-width: 0; }
+.ql table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); }
+.ql th, .ql td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; vertical-align: top; }
+.ql th { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); position: sticky; top: 0; background: var(--color-panel); }
+.ql .l, .ql th.l { text-align: left; }
+.ql td.wrap { white-space: normal; min-width: 140px; }
+.ql-pill { display: inline-block; padding: 0 8px; border-radius: 999px; border: 1px solid currentColor; line-height: 1.6; }
+.ql-ok { color: var(--color-ok); }
+.ql-warn { color: var(--color-warn); }
+.ql-bad { color: var(--color-bad); }
+.ql-muted { color: var(--color-fg-muted); }
+.ql-chips { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); }
+.ql-chip { display: inline-flex; gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--color-border-line); font-size: var(--cds-font-size-caption); }
+.ql-chip b { font-weight: var(--cds-font-weight-medium); }
+.ql-bars { display: grid; gap: 8px; }
+.ql-bar { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; gap: 10px; align-items: center; font-size: var(--cds-font-size-caption); }
+.ql-bar-track { height: 10px; border-radius: 5px; background: var(--cds-chart-grid); overflow: hidden; }
+.ql-bar-fill { height: 100%; border-radius: 5px; }
+.ql-bar-val { min-width: 4.5em; text-align: right; }
+.ql-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: 6px; }
+.ql-legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.ql-tip { position: absolute; pointer-events: none; z-index: 3; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: 6px 9px; font-size: var(--cds-font-size-caption); line-height: 1.45; white-space: nowrap; }
+.ql-tip .k { color: var(--cds-text-secondary); }
+.ql-axis text { fill: var(--cds-text-secondary); font-size: var(--cds-font-size-caption); }
+.ql-axis line, .ql-axis path { stroke: var(--cds-chart-axis); }
+.ql-grid line { stroke: var(--cds-chart-grid); }
+.ql-grid path { stroke: none; }
+.ql-callout { border-left: 3px solid var(--color-warn); padding: 2px 0 2px var(--cds-pad-md); }
+.ql-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: var(--cds-gap-md); }
+.ql-form label { display: grid; gap: 4px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); min-width: 0; }
+.ql-form input { font: inherit; font-size: var(--cds-font-size-body); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: 6px 8px; min-width: 0; width: 100%; box-sizing: border-box; }
+.ql-form input:focus-visible { outline: 2px solid var(--cds-chart-reference); outline-offset: 1px; }
+.ql-inline { display: inline-flex; gap: 8px; align-items: center; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); flex-wrap: wrap; }
+.ql-kv { display: grid; gap: 2px; }
+.ql-kv .ql-big { font-size: var(--cds-font-size-heading); font-family: var(--font-anthropic-sans); font-weight: var(--cds-font-weight-medium); }
+.ql-holdings { display: grid; gap: 4px; font-size: var(--cds-font-size-caption); }
+.ql-holdings div { display: flex; justify-content: space-between; gap: 8px; }
+.ql-foot { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.ql-foot summary { cursor: pointer; color: var(--color-fg); font-size: var(--cds-font-size-body); }
+.ql-foot ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; max-width: 75ch; }
+.ql-facts { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.ql-fact { display: grid; gap: 4px; align-content: start; }
+.ql-fact .ql-big { font-size: var(--cds-font-size-heading); }
+.ql-fact a { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+@media (prefers-reduced-motion: no-preference) { .ql-bar-fill { transition: width var(--cds-dur-slow) var(--cds-ease-out); } }
+</style>
+
+<div class="ql">
+  <header class="ql-head" id="top">
+    <p class="ql-eyebrow">Long-term investing · AI infrastructure · quant screens and goal odds</p>
+    <h1 class="ql-title">AI Infra Quant Lab</h1>
+    <p class="ql-lede" id="lede">The S&amp;P 500 sits <b class="dash-skeleton" data-draw="lede-spy" data-source="regime" data-field="dd_from_52w_high" data-where="ticker=SPY">—</b> from its 52-week high, chip stocks (SMH) <b class="dash-skeleton" data-draw="lede-smh" data-source="regime" data-field="dd_from_52w_high" data-where="ticker=SMH">—</b>, and <b class="dash-skeleton" data-draw="lede-compute" data-source="breadth" data-field="pct_above_200d" data-where="group=compute">—</b> of AI compute stocks trade above their 200-day average.</p>
+    <p class="ql-cap">Prices as of <span class="dash-skeleton" data-draw="asof" data-source="regime" data-field="asof" data-row="0">—</span>. Built for research and education. Nothing here is personal financial advice, and no tool can guarantee returns.</p>
+  </header>
+
+  <section class="ql-sec" id="market">
+    <h2 id="market-h">Market right now</h2>
+    <div class="ql-tiles">
+      <div class="ql-card" id="tile-spy">
+        <span class="ql-cap">S&amp;P 500 (SPY) vs 52-week high</span>
+        <span class="ql-big dash-skeleton" data-draw="t-spy" data-source="regime" data-field="dd_from_52w_high" data-where="ticker=SPY">—</span>
+        <span class="ql-cap">Past month <b data-draw="t-spy-1m" data-source="regime" data-field="ret_1m" data-where="ticker=SPY">—</b> · Year to date <b data-draw="t-spy-ytd" data-source="regime" data-field="ret_ytd" data-where="ticker=SPY">—</b></span>
+      </div>
+      <div class="ql-card" id="tile-qqq">
+        <span class="ql-cap">Nasdaq-100 (QQQ) vs 52-week high</span>
+        <span class="ql-big dash-skeleton" data-draw="t-qqq" data-source="regime" data-field="dd_from_52w_high" data-where="ticker=QQQ">—</span>
+        <span class="ql-cap">Past month <b data-draw="t-qqq-1m" data-source="regime" data-field="ret_1m" data-where="ticker=QQQ">—</b> · Year to date <b data-draw="t-qqq-ytd" data-source="regime" data-field="ret_ytd" data-where="ticker=QQQ">—</b></span>
+      </div>
+      <div class="ql-card" id="tile-smh">
+        <span class="ql-cap">Semiconductors (SMH) vs 52-week high</span>
+        <span class="ql-big dash-skeleton" data-draw="t-smh" data-source="regime" data-field="dd_from_52w_high" data-where="ticker=SMH">—</span>
+        <span class="ql-cap">Past month <b data-draw="t-smh-1m" data-source="regime" data-field="ret_1m" data-where="ticker=SMH">—</b> · Year to date <b data-draw="t-smh-ytd" data-source="regime" data-field="ret_ytd" data-where="ticker=SMH">—</b></span>
+      </div>
+      <div class="ql-card" id="tile-vix">
+        <span class="ql-cap">VIX, the market's fear gauge</span>
+        <span class="ql-big dash-skeleton" data-draw="t-vix" data-source="vix" data-field="last" data-row="0">—</span>
+        <span class="ql-cap">1-year median <b data-draw="t-vix-med" data-source="vix" data-field="median_1y" data-row="0">—</b> · 1-year high <b data-draw="t-vix-max" data-source="vix" data-field="max_1y" data-row="0">—</b></span>
+      </div>
+    </div>
+    <div class="ql-grid2">
+      <div class="ql-card" id="trend-card">
+        <h3>Trend filters</h3>
+        <p class="ql-cap">Is each market above its ~10-month average? Trend-following rules hold stocks only while the answer is yes.</p>
+        <div class="ql-chips" data-draw="trend-chips" data-source="trend_filters"></div>
+      </div>
+      <div class="ql-card" id="breadth-card">
+        <h3>Breadth: share of names above their 200-day average</h3>
+        <div class="ql-bars" data-draw="breadth-bars" data-source="breadth"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="fifty-x">
+    <h2 id="fifty-x-h">What a 50x goal takes</h2>
+    <p>50x means $10,000 grows to $500,000 with no money added. The return you need each year depends only on how long you can wait.</p>
+    <div class="ql-grid2">
+      <div class="ql-card" id="req-card">
+        <h3>Yearly return needed to reach 50x</h3>
+        <div class="ql-bars" data-draw="req-bars" data-source="goal_required"></div>
+      </div>
+      <div class="ql-card" id="sp-card">
+        <h3>How often the S&amp;P 500 itself got there</h3>
+        <p class="ql-cap">Every monthly start date from 1926, dividends reinvested, before costs and taxes.</p>
+        <div class="ql-tablewrap">
+          <table id="sp-table" data-source="sp500_windows" data-row-key="basis,years">
+            <thead><tr><th class="l" data-field="years">Years held</th><th data-field="windows">Start dates</th><th data-field="share_reaching_target">Reached 50x</th><th data-field="median_multiple">Typical multiple</th><th data-field="worst_multiple">Worst</th><th data-field="best_multiple">Best</th></tr></thead>
+            <tbody data-draw="sp-rows"></tbody>
+          </table>
+        </div>
+        <p class="ql-cap">After inflation, <b data-draw="sp-real40" data-source="sp500_windows" data-field="share_reaching_target" data-where="basis=real&amp;years=40">—</b> of 40-year periods reached 50x, and <b data-draw="sp-real50" data-source="sp500_windows" data-field="share_reaching_target" data-where="basis=real&amp;years=50">—</b> of 50-year periods did.</p>
+      </div>
+    </div>
+    <div class="ql-card" id="prob-card">
+      <h3>Chance a one-time investment reaches 50x</h3>
+      <p class="ql-cap">Each row assumes an average yearly return and volatility. "Measured" rows use each fund's own history. Higher volatility drags the typical outcome down, which is why the single-stock row has a lower median than the basket row.</p>
+      <div class="ql-tablewrap">
+        <table id="prob-table" data-source="goal_scenarios" data-row-key="scenario">
+          <thead><tr><th class="l" data-field="scenario">Scenario</th><th data-field="median_cagr">Typical yearly return</th><th data-field="p_10y">10y</th><th data-field="p_15y">15y</th><th data-field="p_20y">20y</th><th data-field="p_25y">25y</th><th data-field="p_30y">30y</th><th data-field="p_35y">35y</th><th data-field="p_40y">40y</th></tr></thead>
+          <tbody data-draw="prob-rows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ql-card" id="boot-card">
+      <h3>Same question, replaying real history</h3>
+      <p class="ql-cap">Draws random 12-month blocks of actual monthly returns. Only histories chosen without hindsight are used.</p>
+      <div class="ql-tablewrap">
+        <table id="boot-table" data-source="goal_bootstrap" data-row-key="series">
+          <thead><tr><th class="l" data-field="series">History replayed</th><th data-field="hist_cagr">Yearly return</th><th data-field="sample_years">Years of data</th><th data-field="p_10y">10y</th><th data-field="p_15y">15y</th><th data-field="p_20y">20y</th><th data-field="p_25y">25y</th><th data-field="p_30y">30y</th><th data-field="p_35y">35y</th><th data-field="p_40y">40y</th></tr></thead>
+          <tbody data-draw="boot-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="simulator">
+    <h2 id="simulator-h">Goal simulator</h2>
+    <p>Try your own plan. Pick a scenario or type a return and volatility, then add a starting amount and monthly savings. The simulator runs thousands of random market paths and shows the spread of outcomes.</p>
+    <div class="ql-card" id="sim-inputs">
+      <form class="ql-form" id="sim-form">
+        <label for="sim-preset">Scenario<select class="dash-select" id="sim-preset" data-draw="sim-preset" data-source="goal_scenarios" aria-label="Scenario"></select></label>
+        <label for="sim-mean">Average yearly return (%)<input id="sim-mean" name="mean" type="number" step="0.5" min="-20" max="60" value="11.8"></label>
+        <label for="sim-vol">Volatility (%)<input id="sim-vol" name="vol" type="number" step="1" min="1" max="150" value="19.5"></label>
+        <label for="sim-initial">Starting amount ($)<input id="sim-initial" name="initial" type="number" step="1000" min="0" value="10000"></label>
+        <label for="sim-monthly">Monthly savings ($)<input id="sim-monthly" name="monthly" type="number" step="50" min="0" value="500"></label>
+        <label for="sim-raise">Yearly raise in savings (%)<input id="sim-raise" name="raise" type="number" step="0.5" min="0" max="20" value="3"></label>
+        <label for="sim-years">Years<input id="sim-years" name="years" type="number" step="1" min="1" max="60" value="30"></label>
+      </form>
+    </div>
+    <div class="ql-tiles" data-draw="sim-out"></div>
+    <div class="ql-card" id="sim-fan-card">
+      <h3>Range of outcomes by year</h3>
+      <p class="ql-cap">Shaded bands hold the middle 50% and 90% of simulated paths. The dashed line is money you put in.</p>
+      <div class="ql-chart" data-draw="sim-fan" style="min-height: 260px"></div>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="signals">
+    <h2 id="signals-h">What the rules say today</h2>
+    <p>Mechanical outputs of the backtested rules, recomputed from closing prices. They describe trends. They are not forecasts.</p>
+    <div class="ql-grid2">
+      <div class="ql-card" id="ai-sleeve">
+        <h3>AI-infrastructure momentum sleeve</h3>
+        <p class="ql-cap">The 10 strongest AI-infrastructure names by 12-month momentum per unit of volatility, held only above their 200-day average, weighted toward calmer names and capped at 15% each. Takeover targets pinned near a deal price are skipped.</p>
+        <div class="ql-tablewrap">
+          <table id="ai-sleeve-table" data-source="signals" data-row-key="sleeve,ticker">
+            <thead><tr><th class="l" data-field="ticker">Ticker</th><th class="l" data-field="name">Name</th><th class="l" data-field="theme">Theme</th><th data-field="weight">Weight</th></tr></thead>
+            <tbody data-draw="ai-sleeve-rows"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ql-card" id="rotation">
+        <h3>Rotation rules</h3>
+        <p class="ql-cap">Sector momentum holds the 3 strongest of 9 S&amp;P sectors. Dual momentum holds US or international stocks while they beat T-bills, and Treasuries otherwise.</p>
+        <div class="ql-chips" data-draw="rot-chips" data-source="signals"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="screens">
+    <h2 id="screens-h">Screens</h2>
+    <p>Each name gets a 0–100 score from momentum, trend, strength against the S&amp;P 500, volatility, worst drop and long-term return, ranked within its group. A high score means a strong, orderly trend, not a cheap price. Valuation comes from a dated fundamentals snapshot and is blank where the snapshot has no data.</p>
+    <label class="ql-inline" for="screen-group">Group
+      <select class="dash-select" id="screen-group" aria-label="Screen group">
+        <option value="power_grid">AI power, grid &amp; cooling</option>
+        <option value="compute">AI compute, networking &amp; data centers</option>
+        <option value="edge_emerging">Edge AI &amp; emerging themes</option>
+        <option value="compounder">Quality compounders</option>
+        <option value="core">Core ETFs</option>
+        <option value="thematic_etf">Thematic ETFs</option>
+        <option value="sector">US sector ETFs</option>
+      </select>
+    </label>
+    <div class="ql-tablewrap">
+      <table id="screen-table" data-source="screens" data-row-key="group,ticker">
+        <thead><tr>
+          <th data-field="rank">#</th><th class="l" data-field="ticker">Ticker</th><th class="l" data-field="name">Name</th><th class="l" data-field="theme">Theme</th>
+          <th data-field="score">Score</th><th class="l" data-field="trend_state">Trend</th><th data-field="ret_12m">12 months</th><th data-field="dd_from_high">From 1y high</th>
+          <th data-field="vol_1y">Volatility</th><th data-field="maxdd_1y">Worst drop, 1y</th><th class="l" data-field="stage">Stage</th><th class="l" data-field="valuation_flag">Valuation</th><th data-field="fwd_pe">Forward P/E</th><th data-field="rev_growth">Sales growth</th>
+        </tr></thead>
+        <tbody data-draw="screen-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="themes">
+    <h2 id="themes-h">AI theme scoreboard</h2>
+    <p>Equal-weight baskets of the names in each theme, sorted by 1-year return. "From 1y high" shows how far each basket has fallen in the current selloff.</p>
+    <div class="ql-tablewrap">
+      <table id="theme-table" data-source="themes" data-row-key="theme">
+        <thead><tr><th class="l" data-field="theme">Theme</th><th data-field="n">Names</th><th data-field="ret_1y">1 year</th><th data-field="cagr_3y">3y per year</th><th data-field="dd_now">From 1y high</th><th data-field="vol_1y">Volatility</th><th data-field="maxdd_3y">Worst drop, 3y</th></tr></thead>
+        <tbody data-draw="theme-rows"></tbody>
+      </table>
+    </div>
+    <div class="ql-card" id="corr-card">
+      <h3>How closely themes move together</h3>
+      <p class="ql-cap">Correlation of daily returns over about two years. Near 1 means they rise and fall together, so owning both adds little diversification.</p>
+      <div class="ql-tablewrap"><div class="ql-chart" data-draw="corr-heat" data-source="theme_corr" style="min-height: 320px"></div></div>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="backtests">
+    <h2 id="backtests-h">Backtests</h2>
+    <label class="ql-inline" for="bt-suite">Test
+      <select class="dash-select" id="bt-suite" aria-label="Backtest">
+        <option value="A_long_history">Long history, 2000 to today</option>
+        <option value="B_ai_infrastructure">AI infrastructure, 2016 to today</option>
+        <option value="C_model_portfolios">Model portfolios, 2012 to today</option>
+      </select>
+    </label>
+    <p class="ql-callout" data-draw="bt-note" data-source="backtest_stats">—</p>
+    <div class="ql-card" id="bt-chart-card">
+      <h3>Growth of $1 (log scale)</h3>
+      <div class="ql-chart" data-draw="bt-chart" data-source="equity_curves" style="min-height: 320px"></div>
+    </div>
+    <div class="ql-tablewrap">
+      <table id="bt-table" data-source="backtest_stats" data-row-key="suite,strategy">
+        <thead><tr><th class="l" data-field="strategy">Strategy</th><th data-field="cagr">Yearly return</th><th data-field="vol">Volatility</th><th data-field="sharpe">Sharpe</th><th data-field="max_drawdown">Worst drop</th><th data-field="worst_year">Worst year</th><th data-field="multiple">Multiple</th></tr></thead>
+        <tbody data-draw="bt-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="models">
+    <h2 id="models-h">Model portfolios</h2>
+    <p>Three illustrative mixes from steady to aggressive. The satellite sleeve is the AI momentum rule above, rebalanced monthly. Results come from the model-portfolio backtest (2012 to today) and inherit its hindsight bias.</p>
+    <div class="ql-tiles" data-draw="model-cards" data-source="model_portfolios backtest_stats"></div>
+  </section>
+
+  <section class="ql-sec" id="leverage">
+    <h2 id="leverage-h">Why leverage is not a shortcut to 50x</h2>
+    <p>Daily-reset 2x and 3x versions of the Nasdaq-100, simulated from QQQ since March 1999 with fund fees and borrowing costs. The 2000–2002 crash nearly erased the 3x version, and it never caught up with plain QQQ.</p>
+    <div class="ql-card" id="lev-card">
+      <h3>Growth of $1 (log scale)</h3>
+      <div class="ql-chart" data-draw="lev-chart" data-source="leverage_curves" style="min-height: 280px"></div>
+    </div>
+    <div class="ql-tablewrap">
+      <table id="lev-table" data-source="leverage_stats" data-row-key="leverage">
+        <thead><tr><th class="l" data-field="leverage">Version</th><th data-field="cagr">Yearly return</th><th data-field="max_drawdown">Worst drop</th><th data-field="dd_2000_2002">2000–02 drop</th><th data-field="multiple">Multiple</th></tr></thead>
+        <tbody data-draw="lev-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ql-sec" id="evidence">
+    <h2 id="evidence-h">Evidence behind the plan</h2>
+    <p>Findings from the research notes that shape the rules above. Each card links to its source.</p>
+    <div class="ql-facts" data-draw="facts" data-source="evidence"></div>
+  </section>
+
+  <details class="ql-foot" id="method">
+    <summary>Method, data and caveats</summary>
+    <ul>
+      <li>Prices are daily adjusted closes from Yahoo Finance, so returns include dividends. Non-US listings are in local currency and are left out of backtests.</li>
+      <li>Backtests decide at each month-end close and trade the next day, charge 10–15 basis points per unit traded, and pay a T-bill rate on cash.</li>
+      <li>The AI-infrastructure list was chosen in 2026. Backtesting it from 2016 rewards hindsight: companies that failed or were never noticed are missing. Treat those returns as an upper bound.</li>
+      <li>Goal odds assume returns are independent from year to year. Real markets have streaks and crashes, so the bootstrap table replays actual history as a check.</li>
+      <li>Valuation flags: stretched means forward P/E above 60 or EV/sales above 20; premium means forward P/E above 35; peak-cycle risk means a forward P/E under 12 on sales growth above 75%, a pattern that often marks the top of a boom.</li>
+      <li>Regenerate everything with the stock-quant toolkit: fetch, report, then dashboard_export.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+(() => {
+  // ---------- formatting (ASCII minus so marked numbers parse cleanly) ----------
+  const LOC = d3.formatLocale({ decimal: '.', thousands: ',', grouping: [3], currency: ['$', ''], minus: '-' });
+  const has = (v) => v !== null && v !== undefined && v !== '' && Number.isFinite(+v);
+  const P1 = LOC.format('.1%'), P0 = LOC.format('.0%'), SP1 = LOC.format('+.1%'), N1 = LOC.format('.1f'), N2 = LOC.format('.2f'), I0 = LOC.format(',d');
+  const F = {
+    pct: (v) => (has(v) ? P1(+v) : '—'),
+    pct0: (v) => (has(v) ? (Math.abs(+v) < 0.005 && +v !== 0 ? (+v > 0 ? '<1%' : '>-1%') : P0(+v)) : '—'),
+    spct: (v) => (has(v) ? SP1(+v) : '—'),
+    n1: (v) => (has(v) ? N1(+v) : '—'),
+    n2: (v) => (has(v) ? N2(+v) : '—'),
+    int: (v) => (has(v) ? I0(Math.round(+v)) : '—'),
+    mult: (v) => (has(v) ? LOC.format(+v >= 100 ? ',.0f' : '.1f')(+v) + 'x' : '—'),
+    money: (v) => {
+      if (!has(v)) return '—';
+      const a = Math.abs(+v);
+      if (a >= 1e9) return '$' + LOC.format('.2f')(+v / 1e9) + 'B';
+      if (a >= 1e6) return '$' + LOC.format('.2f')(+v / 1e6) + 'M';
+      if (a >= 1e4) return '$' + LOC.format('.0f')(+v / 1e3) + 'K';
+      return LOC.format('$,.0f')(+v);
+    },
+  };
+  const parseDate = d3.utcParse('%Y-%m-%d');
+  const fmtMonth = d3.utcFormat('%b %Y');
+  const enc = (v) => encodeURIComponent(String(v));
+  const color = (i) => dash.colors[i % dash.colors.length];
+
+  const state = { group: 'power_grid', suite: 'A_long_history' };
+  window.QL = { F, state };
+
+  const ready = (d) => d && d.status === 'ok';
+  function placeholder(el, d, cols) {
+    // Shows the loading bar, a failure note, or a dash, in place.
+    el.classList.toggle('dash-skeleton', d.status === 'loading');
+    if (el.tagName === 'TBODY') {
+      el.replaceChildren();
+      if (d.status === 'error') {
+        const tr = el.insertRow(); const td = tr.insertCell(); td.colSpan = cols || 1; td.className = 'l ql-bad'; td.textContent = 'This table failed to load.';
+      }
+      return;
+    }
+    el.textContent = d.status === 'error' ? 'Failed to load' : (d.status === 'loading' ? '' : '—');
+  }
+
+  // ---------- simple number drawings ----------
+  function numberDraw(name, src, field, where, fmt) {
+    dash.draw(name, (el) => {
+      const d = dash.data(src);
+      if (!ready(d)) return placeholder(el, d);
+      el.classList.remove('dash-skeleton');
+      let row = d.data[0];
+      if (where) {
+        const conds = where.split('&').map((p) => p.split('='));
+        row = d.data.find((r) => conds.every(([k, v]) => String(r[k]) === v));
+      }
+      el.textContent = row ? fmt(row[field]) : '—';
+    });
+  }
+  numberDraw('lede-spy', 'regime', 'dd_from_52w_high', 'ticker=SPY', F.pct);
+  numberDraw('lede-smh', 'regime', 'dd_from_52w_high', 'ticker=SMH', F.pct);
+  numberDraw('lede-compute', 'breadth', 'pct_above_200d', 'group=compute', F.pct0);
+  dash.draw('asof', (el) => {
+    const d = dash.data('regime');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const dt = parseDate(d.data[0].asof);
+    el.textContent = dt ? d3.utcFormat('%B %-d, %Y')(dt) : d.data[0].asof;
+  });
+  for (const t of ['spy', 'qqq', 'smh']) {
+    const T = t.toUpperCase();
+    numberDraw(`t-${t}`, 'regime', 'dd_from_52w_high', `ticker=${T}`, F.pct);
+    numberDraw(`t-${t}-1m`, 'regime', 'ret_1m', `ticker=${T}`, F.spct);
+    numberDraw(`t-${t}-ytd`, 'regime', 'ret_ytd', `ticker=${T}`, F.spct);
+  }
+  numberDraw('t-vix', 'vix', 'last', null, F.n1);
+  numberDraw('t-vix-med', 'vix', 'median_1y', null, F.n1);
+  numberDraw('t-vix-max', 'vix', 'max_1y', null, F.n1);
+  numberDraw('sp-real40', 'sp500_windows', 'share_reaching_target', 'basis=real&years=40', F.pct0);
+  numberDraw('sp-real50', 'sp500_windows', 'share_reaching_target', 'basis=real&years=50', F.pct0);
+
+  // ---------- chips ----------
+  dash.draw('trend-chips', (el) => {
+    const d = dash.data('trend_filters');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    el.replaceChildren(...d.data.map((r) => {
+      const chip = document.createElement('span');
+      chip.className = 'ql-chip';
+      const b = document.createElement('b'); b.textContent = r.ticker;
+      const s = document.createElement('span');
+      s.className = r.above_10m_avg ? 'ql-ok' : 'ql-bad';
+      s.dataset.source = 'trend_filters'; s.dataset.field = 'above_10m_avg'; s.dataset.where = `ticker=${enc(r.ticker)}`;
+      s.textContent = r.above_10m_avg ? 'above' : 'below';
+      chip.append(b, s);
+      return chip;
+    }));
+  });
+
+  dash.draw('rot-chips', (el) => {
+    const d = dash.data('signals');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const groups = [['Sector momentum (top 3)', 'Sector momentum holds'], ['Dual momentum', 'Dual momentum holds']];
+    el.replaceChildren(...groups.flatMap(([sleeve, label]) => {
+      const rows = d.data.filter((r) => r.sleeve === sleeve);
+      const head = document.createElement('span'); head.className = 'ql-cap'; head.textContent = label + ':';
+      return [head, ...rows.map((r) => {
+        const chip = document.createElement('span'); chip.className = 'ql-chip';
+        const b = document.createElement('b'); b.textContent = r.ticker;
+        b.dataset.source = 'signals'; b.dataset.field = 'ticker'; b.dataset.where = `sleeve=${enc(r.sleeve)}&ticker=${enc(r.ticker)}`;
+        const n = document.createElement('span'); n.className = 'ql-muted'; n.textContent = r.name;
+        chip.append(b, n); return chip;
+      })];
+    }));
+  });
+
+  // ---------- horizontal bars (values printed, so phones need no hover) ----------
+  function bars(el, items, max) {
+    el.replaceChildren(...items.map((it) => {
+      const row = document.createElement('div'); row.className = 'ql-bar';
+      const lab = document.createElement('span'); lab.textContent = it.label;
+      const track = document.createElement('div'); track.className = 'ql-bar-track';
+      const fill = document.createElement('div'); fill.className = 'ql-bar-fill';
+      fill.style.width = `${Math.max(0, Math.min(1, it.value / max)) * 100}%`;
+      fill.style.background = it.color || color(0);
+      track.append(fill);
+      const val = document.createElement('span'); val.className = 'ql-bar-val';
+      Object.assign(val.dataset, it.mark);
+      val.textContent = it.text;
+      row.append(lab, track, val);
+      return row;
+    }));
+  }
+  dash.draw('breadth-bars', (el) => {
+    const d = dash.data('breadth');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    bars(el, d.data.map((r) => ({
+      label: r.label, value: +r.pct_above_200d, text: F.pct0(r.pct_above_200d),
+      color: +r.pct_above_200d >= 0.5 ? 'var(--color-ok)' : (+r.pct_above_200d >= 0.25 ? 'var(--color-warn)' : 'var(--color-bad)'),
+      mark: { source: 'breadth', field: 'pct_above_200d', where: `group=${enc(r.group)}` },
+    })), 1);
+  });
+  dash.draw('req-bars', (el) => {
+    const d = dash.data('goal_required');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const max = d3.max(d.data, (r) => +r.required_cagr) || 1;
+    bars(el, d.data.map((r) => ({
+      label: `${r.horizon_years} years`, value: +r.required_cagr, text: F.pct(r.required_cagr),
+      mark: { source: 'goal_required', field: 'required_cagr', where: `horizon_years=${r.horizon_years}` },
+    })), max);
+  });
+
+  // ---------- tables ----------
+  function fillTable(el, src, rows, keyCols, cells) {
+    el.replaceChildren();
+    for (const r of rows) {
+      const tr = el.insertRow();
+      tr.dataset.key = keyCols.map((k) => enc(r[k])).join(',');
+      for (const c of cells) {
+        const td = tr.insertCell();
+        if (c.cls) td.className = typeof c.cls === 'function' ? c.cls(r) : c.cls;
+        const out = c.render ? c.render(r) : r[c.f];
+        if (out instanceof Node) td.append(out); else td.textContent = out == null ? '—' : out;
+        if (c.bg) { const b = c.bg(r); if (b) td.style.background = b; }
+      }
+    }
+  }
+  const heat = (v) => (has(v) ? `color-mix(in srgb, ${color(0)} ${Math.round(Math.min(1, Math.max(0, +v)) * 55)}%, transparent)` : null);
+  const pill = (text, cls) => { const s = document.createElement('span'); s.className = `ql-pill ${cls}`; s.textContent = text; return s; };
+  const trendCls = (s) => (s === 'strong uptrend' || s === 'uptrend (pullback)' ? 'ql-ok' : s === 'downtrend' ? 'ql-bad' : s && s.startsWith('pinned') ? 'ql-muted' : 'ql-warn');
+  const valCls = (s) => (!s ? 'ql-muted' : s === 'reasonable' ? 'ql-ok' : s === 'premium' ? 'ql-warn' : 'ql-bad');
+  const signCls = (v) => (has(v) ? (+v >= 0 ? 'ql-ok' : 'ql-bad') : '');
+
+  dash.draw('sp-rows', (el) => {
+    const d = dash.data('sp500_windows');
+    if (!ready(d)) return placeholder(el, d, 6);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'sp500_windows', d.data.filter((r) => r.basis === 'nominal'), ['basis', 'years'], [
+      { f: 'years', cls: 'l' }, { render: (r) => F.int(r.windows) },
+      { render: (r) => F.pct0(r.share_reaching_target), bg: (r) => heat(r.share_reaching_target) },
+      { render: (r) => F.mult(r.median_multiple) }, { render: (r) => F.mult(r.worst_multiple) }, { render: (r) => F.mult(r.best_multiple) },
+    ]);
+  });
+  const hz = ['p_10y', 'p_15y', 'p_20y', 'p_25y', 'p_30y', 'p_35y', 'p_40y'];
+  dash.draw('prob-rows', (el) => {
+    const d = dash.data('goal_scenarios');
+    if (!ready(d)) return placeholder(el, d, 9);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'goal_scenarios', d.data, ['scenario'], [
+      { f: 'scenario', cls: 'l wrap' }, { render: (r) => F.pct(r.median_cagr) },
+      ...hz.map((h) => ({ render: (r) => F.pct0(r[h]), bg: (r) => heat(r[h]) })),
+    ]);
+  });
+  dash.draw('boot-rows', (el) => {
+    const d = dash.data('goal_bootstrap');
+    if (!ready(d)) return placeholder(el, d, 10);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'goal_bootstrap', d.data, ['series'], [
+      { f: 'series', cls: 'l wrap' }, { render: (r) => F.pct(r.hist_cagr) }, { render: (r) => F.n1(r.sample_years) },
+      ...hz.map((h) => ({ render: (r) => F.pct0(r[h]), bg: (r) => heat(r[h]) })),
+    ]);
+  });
+  dash.draw('ai-sleeve-rows', (el) => {
+    const d = dash.data('signals');
+    if (!ready(d)) return placeholder(el, d, 4);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'signals', d.data.filter((r) => r.sleeve.startsWith('AI-infra')), ['sleeve', 'ticker'], [
+      { f: 'ticker', cls: 'l' }, { f: 'name', cls: 'l wrap' }, { f: 'theme', cls: 'l' }, { render: (r) => F.pct(r.weight) },
+    ]);
+  });
+  dash.draw('screen-rows', (el) => {
+    const d = dash.data('screens');
+    if (!ready(d)) return placeholder(el, d, 14);
+    el.classList.remove('dash-skeleton');
+    const rows = d.data.filter((r) => r.group === state.group).sort((a, b) => a.rank - b.rank);
+    fillTable(el, 'screens', rows, ['group', 'ticker'], [
+      { f: 'rank' }, { f: 'ticker', cls: 'l' }, { f: 'name', cls: 'l wrap' }, { f: 'theme', cls: 'l' },
+      { render: (r) => F.n1(r.score), bg: (r) => heat(has(r.score) ? +r.score / 100 : null) },
+      { render: (r) => pill(r.trend_state || '—', trendCls(r.trend_state)), cls: 'l' },
+      { render: (r) => F.pct(r.ret_12m), cls: (r) => signCls(r.ret_12m) },
+      { render: (r) => F.pct(r.dd_from_high) }, { render: (r) => F.pct0(r.vol_1y) }, { render: (r) => F.pct0(r.maxdd_1y) },
+      { f: 'stage', cls: 'l' },
+      { render: (r) => (r.valuation_flag ? pill(r.valuation_flag, valCls(r.valuation_flag)) : '—'), cls: 'l' },
+      { render: (r) => F.n1(r.fwd_pe) }, { render: (r) => F.pct0(r.rev_growth) },
+    ]);
+  });
+  dash.draw('theme-rows', (el) => {
+    const d = dash.data('themes');
+    if (!ready(d)) return placeholder(el, d, 7);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'themes', d.data, ['theme'], [
+      { f: 'theme', cls: 'l wrap' }, { f: 'n' }, { render: (r) => F.pct(r.ret_1y), cls: (r) => signCls(r.ret_1y) },
+      { render: (r) => F.pct(r.cagr_3y) }, { render: (r) => F.pct(r.dd_now) }, { render: (r) => F.pct0(r.vol_1y) }, { render: (r) => F.pct0(r.maxdd_3y) },
+    ]);
+  });
+  dash.draw('bt-rows', (el) => {
+    const d = dash.data('backtest_stats');
+    if (!ready(d)) return placeholder(el, d, 7);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'backtest_stats', d.data.filter((r) => r.suite === state.suite), ['suite', 'strategy'], [
+      { f: 'strategy', cls: 'l wrap' }, { render: (r) => F.pct(r.cagr) }, { render: (r) => F.pct0(r.vol) }, { render: (r) => F.n2(r.sharpe) },
+      { render: (r) => F.pct0(r.max_drawdown) }, { render: (r) => F.pct0(r.worst_year) }, { render: (r) => F.mult(r.multiple) },
+    ]);
+  });
+  dash.draw('lev-rows', (el) => {
+    const d = dash.data('leverage_stats');
+    if (!ready(d)) return placeholder(el, d, 5);
+    el.classList.remove('dash-skeleton');
+    fillTable(el, 'leverage_stats', d.data, ['leverage'], [
+      { f: 'leverage', cls: 'l' }, { render: (r) => F.pct(r.cagr) }, { render: (r) => F.pct(r.max_drawdown) }, { render: (r) => F.pct(r.dd_2000_2002) }, { render: (r) => F.mult(r.multiple) },
+    ]);
+  });
+  dash.draw('bt-note', (el) => {
+    const d = dash.data('backtest_stats');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const r = d.data.find((x) => x.suite === state.suite);
+    el.replaceChildren();
+    if (!r) { el.textContent = '—'; return; }
+    const s = document.createElement('span');
+    s.dataset.source = 'backtest_stats'; s.dataset.field = 'suite_note'; s.dataset.where = `suite=${enc(r.suite)}&strategy=${enc(r.strategy)}`;
+    s.textContent = r.suite_note;
+    el.append(s);
+  });
+
+  // ---------- model portfolio cards ----------
+  dash.draw('model-cards', (el) => {
+    const m = dash.data('model_portfolios'), b = dash.data('backtest_stats');
+    if (!ready(m)) return placeholder(el, m);
+    el.classList.remove('dash-skeleton');
+    const profiles = [...new Set(m.data.map((r) => r.profile))];
+    el.replaceChildren(...profiles.map((p) => {
+      const card = document.createElement('div'); card.className = 'ql-card'; card.id = `model-${p.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+      const h = document.createElement('h3'); h.textContent = p;
+      const list = document.createElement('div'); list.className = 'ql-holdings';
+      for (const r of m.data.filter((x) => x.profile === p)) {
+        const row = document.createElement('div');
+        const a = document.createElement('span'); a.textContent = r.holding;
+        const w = document.createElement('b'); w.textContent = F.pct0(r.weight);
+        w.dataset.source = 'model_portfolios'; w.dataset.field = 'weight'; w.dataset.where = `profile=${enc(r.profile)}&holding=${enc(r.holding)}`;
+        row.append(a, w); list.append(row);
+      }
+      card.append(h, list);
+      const st = ready(b) ? b.data.find((x) => x.suite === 'C_model_portfolios' && x.strategy === p) : null;
+      if (st) {
+        const kv = document.createElement('p'); kv.className = 'ql-cap';
+        const mk = (field, text) => { const s = document.createElement('b'); s.dataset.source = 'backtest_stats'; s.dataset.field = field; s.dataset.where = `suite=C_model_portfolios&strategy=${enc(p)}`; s.textContent = text; return s; };
+        kv.append('Backtest: ', mk('cagr', F.pct(st.cagr)), ' a year, worst drop ', mk('max_drawdown', F.pct0(st.max_drawdown)), '.');
+        card.append(kv);
+      }
+      return card;
+    }));
+  });
+
+  // ---------- evidence cards ----------
+  dash.draw('facts', (el) => {
+    const d = dash.data('evidence');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    el.replaceChildren(...d.data.map((r, i) => {
+      const card = document.createElement('div'); card.className = 'ql-card ql-fact';
+      const v = document.createElement('span'); v.className = 'ql-big';
+      v.dataset.source = 'evidence'; v.dataset.field = 'figure'; v.dataset.row = String(i); v.textContent = r.figure;
+      const c = document.createElement('p'); c.textContent = r.claim;
+      card.append(v, c);
+      if (typeof r.url === 'string' && /^https?:\/\//.test(r.url)) {
+        const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = r.source; card.append(a);
+      } else if (r.source) {
+        const s = document.createElement('span'); s.className = 'ql-cap'; s.textContent = r.source; card.append(s);
+      }
+      return card;
+    }));
+  });
+
+  // ---------- line chart with tooltip ----------
+  function lineChart(el, series, opts) {
+    el.replaceChildren();
+    const W = Math.max(260, el.clientWidth || 600);
+    const H = opts.height || 300;
+    const legend = document.createElement('div'); legend.className = 'ql-legend';
+    for (const s of series) { const it = document.createElement('span'); const i = document.createElement('i'); i.style.background = s.color; it.append(i, s.name); legend.append(it); }
+    el.append(legend);
+    const all = series.flatMap((s) => s.points);
+    if (!all.length) { const p = document.createElement('p'); p.className = 'ql-cap'; p.textContent = 'No data for this view.'; el.append(p); return; }
+    const svg = d3.select(el).append('svg').attr('width', W).attr('height', H).attr('role', 'img').attr('aria-label', opts.label);
+    const lo = d3.min(all, (p) => p.value), hi = d3.max(all, (p) => p.value);
+    const y = d3.scaleLog().domain([Math.max(lo, 1e-4) * 0.9, hi * 1.1]).nice();
+    const cands = [1e-4, 1e-3, 0.01, 0.1, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000];
+    let ticks = cands.filter((t) => t >= y.domain()[0] && t <= y.domain()[1]);
+    while (ticks.length > 7) ticks = ticks.filter((_, i) => i % 2 === 0);
+    const tf = (t) => (t >= 1 ? LOC.format(',')(t) + 'x' : LOC.format('~g')(t) + 'x');
+    const probe = svg.append('g').attr('class', 'ql-axis');
+    const widest = d3.max(ticks.map((t) => { const n = probe.append('text').text(tf(t)); const w = n.node().getComputedTextLength(); n.remove(); return w; })) || 30;
+    probe.remove();
+    const m = { t: 8, r: 12, b: 26, l: Math.ceil(widest) + 10 };
+    const x = d3.scaleUtc().domain(d3.extent(all, (p) => p.date)).range([m.l, W - m.r]);
+    y.range([H - m.b, m.t]);
+    svg.append('g').attr('class', 'ql-grid').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(ticks).tickSize(-(W - m.l - m.r)).tickFormat(''));
+    svg.append('g').attr('class', 'ql-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(ticks).tickFormat(tf).tickSizeOuter(0));
+    const xt = Math.max(2, Math.floor((W - m.l - m.r) / 90));
+    svg.append('g').attr('class', 'ql-axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(xt).tickSizeOuter(0));
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(1)).attr('y2', y(1)).style('stroke', 'var(--cds-chart-reference)').style('stroke-dasharray', '3 3');
+    const line = d3.line().x((p) => x(p.date)).y((p) => y(Math.max(p.value, 1e-4)));
+    for (const s of series) svg.append('path').datum(s.points).attr('fill', 'none').style('stroke', s.color).attr('stroke-width', s.width || 1.6).attr('d', line);
+    // tooltip
+    const tip = document.createElement('div'); tip.className = 'ql-tip'; tip.hidden = true; el.append(tip);
+    const rule = svg.append('line').attr('y1', m.t).attr('y2', H - m.b).style('stroke', 'var(--cds-chart-axis)').attr('visibility', 'hidden');
+    const bis = d3.bisector((p) => p.date).center;
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px] = d3.pointer(ev); const dt = x.invert(px);
+        rule.attr('x1', px).attr('x2', px).attr('visibility', 'visible');
+        tip.replaceChildren();
+        const head = document.createElement('div'); head.className = 'k'; head.textContent = fmtMonth(dt); tip.append(head);
+        for (const s of series) {
+          if (!s.points.length) continue;
+          const p = s.points[bis(s.points, dt)];
+          const row = document.createElement('div'); row.textContent = `${s.name}: ${F.mult(p.value)}`; tip.append(row);
+        }
+        tip.hidden = false;
+        const box = el.getBoundingClientRect(); const tw = tip.offsetWidth;
+        const left = Math.min(Math.max(0, px + 12), Math.max(0, box.width - tw));
+        tip.style.left = `${left}px`; tip.style.top = `${m.t + 24}px`;
+      })
+      .on('pointerleave', () => { tip.hidden = true; rule.attr('visibility', 'hidden'); });
+  }
+  dash.draw('bt-chart', (el) => {
+    const d = dash.data('equity_curves');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const rows = d.data.filter((r) => r.suite === state.suite);
+    const names = [...new Set(rows.map((r) => r.strategy))];
+    const series = names.map((n, i) => ({ name: n, color: color(i), points: rows.filter((r) => r.strategy === n).map((r) => ({ date: parseDate(r.date), value: +r.value })) }));
+    lineChart(el, series, { height: 320, label: 'Growth of one dollar for each backtested strategy, log scale' });
+  });
+  dash.draw('lev-chart', (el) => {
+    const d = dash.data('leverage_curves');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    const names = [...new Set(d.data.map((r) => r.leverage))];
+    const series = names.map((n, i) => ({ name: `QQQ ${n}`, color: color(i), points: d.data.filter((r) => r.leverage === n).map((r) => ({ date: parseDate(r.date), value: +r.value })) }));
+    lineChart(el, series, { height: 280, label: 'Growth of one dollar in QQQ at 1x, 2x and 3x daily leverage since 1999, log scale' });
+  });
+
+  // ---------- correlation heatmap ----------
+  dash.draw('corr-heat', (el) => {
+    const d = dash.data('theme_corr');
+    if (!ready(d)) return placeholder(el, d);
+    el.classList.remove('dash-skeleton');
+    el.replaceChildren();
+    const labels = [...new Set(d.data.map((r) => r.a))];
+    const val = new Map(d.data.map((r) => [`${r.a}|${r.b}`, r.corr]));
+    const probe = d3.select(el).append('svg').attr('width', 10).attr('height', 10).append('g').attr('class', 'ql-axis');
+    const lw = d3.max(labels.map((l) => { const n = probe.append('text').text(l); const w = n.node().getComputedTextLength(); n.remove(); return w; })) || 100;
+    d3.select(el).select('svg').remove();
+    const cell = Math.max(26, Math.min(44, Math.floor(((el.clientWidth || 600) - lw - 16) / labels.length)));
+    const W = lw + 12 + cell * labels.length, H = lw + 12 + cell * labels.length;
+    const svg = d3.select(el).append('svg').attr('width', W).attr('height', H).attr('role', 'img').attr('aria-label', 'Correlation heatmap of AI theme baskets and market benchmarks');
+    const ox = lw + 12, oy = lw + 12;
+    const g = svg.append('g').attr('class', 'ql-axis');
+    labels.forEach((l, i) => {
+      g.append('text').attr('x', ox - 6).attr('y', oy + i * cell + cell / 2).attr('dy', '0.35em').attr('text-anchor', 'end').text(l);
+      g.append('text').attr('transform', `translate(${ox + i * cell + cell / 2},${oy - 6}) rotate(-60)`).attr('text-anchor', 'start').text(l);
+    });
+    const tip = document.createElement('div'); tip.className = 'ql-tip'; tip.hidden = true; el.append(tip);
+    labels.forEach((a, i) => labels.forEach((b, j) => {
+      const v = val.get(`${a}|${b}`);
+      const rc = svg.append('rect').attr('x', ox + j * cell).attr('y', oy + i * cell).attr('width', cell - 1).attr('height', cell - 1).attr('rx', 2)
+        .style('fill', has(v) ? (v >= 0 ? color(0) : 'var(--color-bad)') : 'var(--cds-chart-grid)')
+        .style('fill-opacity', has(v) ? Math.min(1, Math.abs(+v)) * 0.85 + 0.05 : 1);
+      if (cell >= 30 && has(v)) svg.append('text').attr('x', ox + j * cell + cell / 2).attr('y', oy + i * cell + cell / 2).attr('dy', '0.35em').attr('text-anchor', 'middle')
+        .style('fill', 'var(--color-fg)').style('font-size', '10px').style('pointer-events', 'none').text(LOC.format('.1f')(+v));
+      rc.on('pointerenter', () => {
+        tip.textContent = `${a} vs ${b}: ${has(v) ? N2(+v) : 'n/a'}`; tip.hidden = false;
+        const left = Math.min(ox + j * cell + cell, Math.max(0, W - tip.offsetWidth));
+        tip.style.left = `${left}px`; tip.style.top = `${oy + i * cell - 28}px`;
+      }).on('pointerleave', () => { tip.hidden = true; });
+    }));
+  });
+
+  // ---------- goal simulator (runs on what the reader types) ----------
+  function readInputs() {
+    const num = (id, dflt) => { const el = document.getElementById(id); const v = el ? parseFloat(el.value) : NaN; return Number.isFinite(v) ? v : dflt; };
+    return {
+      mean: num('sim-mean', 10) / 100, vol: Math.max(0.01, num('sim-vol', 17) / 100),
+      initial: Math.max(0, num('sim-initial', 10000)), monthly: Math.max(0, num('sim-monthly', 500)),
+      raise: Math.max(0, num('sim-raise', 3) / 100), years: Math.max(1, Math.min(60, Math.round(num('sim-years', 30)))),
+    };
+  }
+  const PATHS = 4000;
+  let simCache = { key: '', res: null };
+  function simulate(inp) {
+    const key = JSON.stringify(inp);
+    if (simCache.key === key) return simCache.res;
+    // Lognormal with the requested arithmetic mean and volatility (same as goal.py).
+    const g = 1 + inp.mean, s2 = Math.log(1 + (inp.vol / g) ** 2);
+    const mu = Math.log(Math.max(g, 1e-9)) - s2 / 2, sig = Math.sqrt(s2);
+    const muM = mu / 12, sigM = sig / Math.sqrt(12), months = inp.years * 12;
+    let seed = 20261125;
+    const rnd = () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const gauss = () => { let u = 0; while (u === 0) u = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * rnd()); };
+    const yearly = Array.from({ length: inp.years }, () => new Float64Array(PATHS));
+    const term = new Float64Array(PATHS), dd = new Float64Array(PATHS);
+    let contributed = inp.initial;
+    const contrib = []; for (let mth = 0; mth < months; mth++) { const c = inp.monthly * (1 + inp.raise) ** Math.floor(mth / 12); contrib.push(c); contributed += c; }
+    for (let p = 0; p < PATHS; p++) {
+      let w = inp.initial, idx = 1, peak = 1, worst = 0;
+      for (let mth = 0; mth < months; mth++) {
+        const r = Math.exp(muM + sigM * gauss()) - 1;
+        w = (w + contrib[mth]) * (1 + r);
+        idx *= 1 + r; if (idx > peak) peak = idx; const ddn = idx / peak - 1; if (ddn < worst) worst = ddn;
+        if ((mth + 1) % 12 === 0) yearly[(mth + 1) / 12 - 1][p] = w;
+      }
+      term[p] = w; dd[p] = worst;
+    }
+    const q = (arr, pr) => d3.quantileSorted(Float64Array.from(arr).sort(), pr);
+    let cum = inp.initial;
+    const fan = yearly.map((arr, i) => {
+      for (let mth = i * 12; mth < (i + 1) * 12; mth++) cum += contrib[mth];
+      const s = Float64Array.from(arr).sort();
+      return { year: i + 1, p5: d3.quantileSorted(s, 0.05), p25: d3.quantileSorted(s, 0.25), p50: d3.quantileSorted(s, 0.5), p75: d3.quantileSorted(s, 0.75), p95: d3.quantileSorted(s, 0.95), paid: cum };
+    });
+    const share = (k) => term.reduce((a, v) => a + (v >= k * contributed ? 1 : 0), 0) / PATHS;
+    const res = {
+      contributed, fan, medianCagr: Math.exp(mu) - 1,
+      p10: q(term, 0.10), p50: q(term, 0.5), p90: q(term, 0.90),
+      x10: share(10), x50: share(50), loss: 1 - share(1), dd: q(dd, 0.5),
+    };
+    simCache = { key, res };
+    return res;
+  }
+  dash.draw('sim-preset', (sel) => {
+    const d = dash.data('goal_scenarios');
+    const rows = ready(d) ? d.data.filter((r) => !String(r.scenario).includes('measured')) : [];
+    const current = sel.value;
+    sel.replaceChildren(new Option('Custom (type below)', ''), ...rows.map((r) => new Option(r.scenario, r.scenario)));
+    sel.value = rows.some((r) => r.scenario === current) ? current : (rows.find((r) => String(r.scenario).startsWith('US stocks, long-run'))?.scenario || '');
+    sel.onchange = () => {
+      const r = rows.find((x) => x.scenario === sel.value);
+      if (r) {
+        document.querySelectorAll('#sim-mean').forEach((i) => { i.value = (Math.round(r.mean * 1000) / 10).toString(); });
+        document.querySelectorAll('#sim-vol').forEach((i) => { i.value = (Math.round(r.vol * 1000) / 10).toString(); });
+      }
+      dash.draw('sim-out'); dash.draw('sim-fan');
+    };
+  });
+  dash.draw('sim-out', (el) => {
+    const inp = readInputs();
+    const r = simulate(inp);
+    const tile = (label, value, sub, cls) => {
+      const c = document.createElement('div'); c.className = 'ql-card ql-kv';
+      const a = document.createElement('span'); a.className = 'ql-cap'; a.textContent = label;
+      const b = document.createElement('span'); b.className = `ql-big ${cls || ''}`; b.textContent = value;
+      c.append(a, b);
+      if (sub) { const s = document.createElement('span'); s.className = 'ql-cap'; s.textContent = sub; c.append(s); }
+      return c;
+    };
+    el.replaceChildren(
+      tile('Money you put in', F.money(r.contributed), `over ${inp.years} years`),
+      tile('Typical outcome (median)', F.money(r.p50), `${F.mult(r.p50 / r.contributed)} your money`),
+      tile('Unlucky 1 in 10', F.money(r.p10), `${F.mult(r.p10 / r.contributed)} your money`, r.p10 < r.contributed ? 'ql-bad' : ''),
+      tile('Lucky 1 in 10', F.money(r.p90), `${F.mult(r.p90 / r.contributed)} your money`),
+      tile('Chance of 10x your money', F.pct0(r.x10), null),
+      tile('Chance of 50x your money', F.pct0(r.x50), null),
+      tile('Typical worst drop along the way', F.pct0(r.dd), `typical yearly return ${F.pct(r.medianCagr)}`, 'ql-warn'),
+    );
+  });
+  dash.draw('sim-fan', (el) => {
+    const r = simulate(readInputs());
+    el.replaceChildren();
+    const W = Math.max(260, el.clientWidth || 600), H = 260;
+    const vals = r.fan.flatMap((f) => [f.p5, f.p95, f.paid]).filter((v) => v > 0);
+    const y = d3.scaleLog().domain([Math.max(1, d3.min(vals) * 0.8), d3.max(vals) * 1.15]).nice();
+    const [d0, d1] = y.domain();
+    let ticks = [];
+    for (let e = Math.floor(Math.log10(d0)); e <= Math.ceil(Math.log10(d1)); e++) {
+      for (const k of [1, 2, 5]) { const t = k * 10 ** e; if (t >= d0 && t <= d1) ticks.push(t); }
+    }
+    while (ticks.length > 6) ticks = ticks.filter((_, i) => i % 2 === 0);
+    const probe = d3.select(el).append('svg').attr('width', 10).attr('height', 10).append('g').attr('class', 'ql-axis');
+    const lw = d3.max(ticks.map((t) => { const n = probe.append('text').text(F.money(t)); const w = n.node().getComputedTextLength(); n.remove(); return w; })) || 40;
+    d3.select(el).select('svg').remove();
+    const m = { t: 10, r: 12, b: 26, l: Math.ceil(lw) + 10 };
+    const x = d3.scaleLinear().domain([1, r.fan.length]).range([m.l, W - m.r]);
+    y.range([H - m.b, m.t]);
+    const svg = d3.select(el).append('svg').attr('width', W).attr('height', H).attr('role', 'img').attr('aria-label', 'Simulated range of portfolio values by year');
+    svg.append('g').attr('class', 'ql-grid').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(ticks).tickSize(-(W - m.l - m.r)).tickFormat(''));
+    svg.append('g').attr('class', 'ql-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(ticks).tickFormat(F.money).tickSizeOuter(0));
+    svg.append('g').attr('class', 'ql-axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.min(r.fan.length, Math.max(2, Math.floor((W - m.l) / 60)))).tickFormat((v) => `${v}y`).tickSizeOuter(0));
+    const area = (a, b) => d3.area().x((f) => x(f.year)).y0((f) => y(Math.max(1, f[a]))).y1((f) => y(Math.max(1, f[b])));
+    svg.append('path').datum(r.fan).style('fill', color(0)).style('fill-opacity', 0.15).attr('d', area('p5', 'p95'));
+    svg.append('path').datum(r.fan).style('fill', color(0)).style('fill-opacity', 0.3).attr('d', area('p25', 'p75'));
+    svg.append('path').datum(r.fan).attr('fill', 'none').style('stroke', color(0)).attr('stroke-width', 2).attr('d', d3.line().x((f) => x(f.year)).y((f) => y(Math.max(1, f.p50))));
+    svg.append('path').datum(r.fan).attr('fill', 'none').style('stroke', 'var(--cds-chart-reference)').style('stroke-dasharray', '4 3').attr('d', d3.line().x((f) => x(f.year)).y((f) => y(Math.max(1, f.paid))));
+    const tip = document.createElement('div'); tip.className = 'ql-tip'; tip.hidden = true; el.append(tip);
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px] = d3.pointer(ev); const yr = Math.max(1, Math.min(r.fan.length, Math.round(x.invert(px))));
+        const f = r.fan[yr - 1];
+        tip.replaceChildren(...[`Year ${yr}`, `Lucky 1 in 20: ${F.money(f.p95)}`, `Typical: ${F.money(f.p50)}`, `Unlucky 1 in 20: ${F.money(f.p5)}`, `Put in: ${F.money(f.paid)}`].map((t, i) => { const dv = document.createElement('div'); if (i === 0) dv.className = 'k'; dv.textContent = t; return dv; }));
+        tip.hidden = false;
+        const left = Math.min(Math.max(0, x(yr) + 12), Math.max(0, W - tip.offsetWidth));
+        tip.style.left = `${left}px`; tip.style.top = `${m.t + 8}px`;
+      })
+      .on('pointerleave', () => { tip.hidden = true; });
+  });
+
+  // ---------- listeners (outside drawings a script only listens and sets values) ----------
+  const rerunSim = () => { dash.draw('sim-out'); dash.draw('sim-fan'); };
+  document.querySelectorAll('#sim-form input').forEach((inp) => {
+    inp.addEventListener('change', rerunSim);
+    inp.addEventListener('input', () => {
+      document.querySelectorAll('#sim-preset').forEach((s) => { if (inp.id === 'sim-mean' || inp.id === 'sim-vol') s.value = ''; });
+    });
+  });
+  document.querySelectorAll('#sim-form').forEach((f) => f.addEventListener('submit', (e) => { e.preventDefault(); rerunSim(); }));
+  document.querySelectorAll('#screen-group').forEach((s) => {
+    s.value = state.group;
+    s.addEventListener('change', () => { state.group = s.value; dash.draw('screen-rows'); });
+  });
+  document.querySelectorAll('#bt-suite').forEach((s) => {
+    s.value = state.suite;
+    s.addEventListener('change', () => { state.suite = s.value; dash.draw('bt-chart'); dash.draw('bt-rows'); dash.draw('bt-note'); });
+  });
+})();
+</script>
