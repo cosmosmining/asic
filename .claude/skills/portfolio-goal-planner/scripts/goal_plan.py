@@ -103,6 +103,32 @@ def required_rate(target: float, initial: float, contrib: np.ndarray) -> float:
     return hi
 
 
+def crash_final_value(rate: float, initial: float, contrib: np.ndarray, crash_month: int | None,
+                      depth: float = 0.5, recover_months: int | None = None) -> float:
+    """Final value when prices fall ``depth`` at ``crash_month`` (None = no crash).
+
+    Without ``recover_months`` the market resumes ``rate`` from the lower level (a
+    permanent loss). With it, prices climb back to the no-crash path over that many
+    months, so contributions made in the dip buy cheap.
+    """
+    rm = (1 + rate) ** (1 / 12) - 1
+    n = len(contrib)
+
+    def factor(t: int) -> float:
+        if crash_month is None or t < crash_month:
+            return 1.0
+        if recover_months is None:
+            return 1.0 - depth
+        done = min(1.0, (t - crash_month) / recover_months)
+        return (1.0 - depth) ** (1.0 - done)
+
+    price = lambda t: (1 + rm) ** t * factor(t)  # noqa: E731
+    units = initial / price(0)
+    for m in range(n):
+        units += contrib[m] / price(m)
+    return units * price(n)
+
+
 def history_replay(initial: float, contrib: np.ndarray, target: float) -> dict | None:
     if not SHILLER.exists():
         return None
@@ -170,6 +196,7 @@ def main() -> int:
     ap.add_argument("--backtest-mix", nargs="*", metavar="TICKER=WEIGHT")
     ap.add_argument("--fee", type=float, default=0.0, help="yearly cost (expense ratio + advice), e.g. 0.002")
     ap.add_argument("--rf", type=float, default=0.035, help="cash yield for the Kelly calculation")
+    ap.add_argument("--stress-rate", type=float, default=0.07, help="steady return used for the crash and fee tests")
     ap.add_argument("--paths", type=int, default=20_000)
     ap.add_argument("--cache-dir", help="where downloaded prices are cached (default <tmp>/stockquant-cache)")
     ap.add_argument("--json")
@@ -204,6 +231,11 @@ def main() -> int:
         table1.append({"rate": r, "value": v})
         print(f"| {pct(r, 0)} | {money(v)} | {v / paid:.1f}x | {'yes' if v >= target else 'no'} |")
     out["deterministic"] = table1
+    gross = fv_at(a.stress_rate, a.initial, contrib)
+    net = fv_at(a.stress_rate - 0.01, a.initial, contrib)
+    out["fee_1pct_cost"] = 1 - net / gross
+    print(f"\nCosts matter: at {pct(a.stress_rate, 0)} a year, a 1% yearly fee would cut this plan's result from {money(gross)} "
+          f"to {money(net)}, {pct(1 - net / gross, 0)} less.")
 
     # 2. history replay
     hist = history_replay(a.initial, contrib, target)
@@ -218,6 +250,26 @@ def main() -> int:
                 h = hist[lab]
                 print(f"| {lab} | {h['start_months']} | {pct(h['share_reaching_target'], 0)} | {money(h['median'])} | {money(h['worst'])} | {money(h['best'])} |")
         print(f"\nSource: Shiller monthly data ({hist['span']}); index returns before fees and taxes. The real row measures the target in today's dollars.")
+
+    # Stress test: one 50% crash at different points of the plan.
+    print(f"\n## Stress test: one 50% crash (steady {pct(a.stress_rate, 0)} a year otherwise)\n")
+    base = crash_final_value(a.stress_rate, a.initial, contrib, None)
+    print("| Crash starts | Final value if prices never catch up | vs no-crash path | Final value if prices recover within 3 years | vs no-crash path |")
+    print("|---|---:|---:|---:|---:|")
+    stress = []
+    points = {12: "After year 1", max(12, (a.years // 2) * 12): f"After year {max(1, a.years // 2)}",
+              max(12, (a.years - 1) * 12): "Start of the final year"}
+    for cm, label in sorted(points.items()):
+        perm = crash_final_value(a.stress_rate, a.initial, contrib, cm)
+        rec = crash_final_value(a.stress_rate, a.initial, contrib, cm, recover_months=36)
+        stress.append({"crash": label, "month": cm, "no_recovery": perm, "recovers_3y": rec, "no_crash": base})
+        print(f"| {label} | {money(perm)} | {pct(perm / base - 1, 0)} | {money(rec)} | {pct(rec / base - 1, 0)} |")
+    out["stress"] = stress
+    lesson = ("Early crashes cost little and can even help, because later savings buy cheap; a crash near the end hurts most, "
+              "which is why money needed within about 5 years should not be in stocks.") if a.monthly > 0 else (
+              "With no ongoing savings to buy the dip, a crash costs its full depth whenever it happens unless prices recover, "
+              "so the time left to recover is what matters. Money needed within about 5 years should not be in stocks.")
+    print(f"\nNo-crash path: {money(base)}. The 'vs no-crash path' columns are the shortfall (or gain) against that path. {lesson}")
 
     # 3. Monte Carlo
     scen = [] if a.only_custom else list(DEFAULT_SCENARIOS)

@@ -37,13 +37,17 @@ python goal_plan.py --initial 200000 --years 15 --target-amount 2000000 --scenar
 python goal_plan.py ... --backtest-mix VTI=0.6 VXUS=0.25 QQQM=0.15   # replays a real ETF mix (needs internet)
 ```
 
-The script runs offline except for `--backtest-mix`. It prints four sections:
-1. The return the exact plan needs, and what it grows to at 4–20% a year.
+The script runs offline except for `--backtest-mix`. It prints:
+1. The return the exact plan needs, what it grows to at 4–20% a year, and what a 1%
+   yearly fee would cost this plan.
 2. A replay of the plan through every start month of S&P 500 history since 1926,
-   nominal and after inflation, using the bundled Shiller data.
-3. Monte Carlo outcomes for each scenario: 10th, 50th and 90th percentile, chance of
-   the target, typical worst drop, chance of ending below the money put in.
-4. Kelly sizing limits for concentrated bets.
+   nominal and after inflation, using the bundled Shiller data (which ends mid-2023).
+3. A stress test: one 50% crash early, midway and in the final year, with and
+   without a recovery. Use this table rather than building your own.
+4. Monte Carlo outcomes for each scenario: 10th, 50th and 90th percentile, chance of
+   the target, typical worst drop, chance of ending below the money put in. Rows
+   marked "assumed" are hypothetical; never present their odds as evidence.
+5. Kelly sizing limits for concentrated bets.
 
 The toolkit in `scripts/stockquant/` also offers
 `python -m stockquant goal --bootstrap SPY ...` to resample real SPY history. If the
@@ -89,11 +93,14 @@ the current fees and fit with their own accounts.
 
 ## 5. Stress-test, then deliver
 
-- Show what a 50% crash in year 1 versus year 15 does to the plan (sequence risk),
-  and the dollar amount of the typical worst drop at the end of the horizon.
-- Deliver: a short summary in chat (target, required return, realistic range,
-  recommended mix, the one behavior that matters most), and save the full plan to
-  a markdown file (default `research/goal-plan-<YYYY-MM-DD>.md`) with the script
-  output tables.
+- Use the script's stress-test table to show sequence risk, and give the dollar
+  amount of the typical worst drop at the end of the horizon.
+- Deliver a short summary in chat: target, required return, realistic range,
+  recommended mix, and the one behavior that matters most. Lead with the honest
+  answer to "is this realistic", in the user's own terms.
+- Save the plan to one markdown file (default `research/goal-plan-<YYYY-MM-DD>.md`).
+  Keep it focused, about 1,500 words plus the key tables, with the raw script
+  output in an appendix at the end rather than in many separate files. A plan the
+  user actually reads beats an exhaustive one.
 - Close with what would change the plan: income changes, a much shorter horizon,
   or a large market move.

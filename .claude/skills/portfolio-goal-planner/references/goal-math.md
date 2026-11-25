@@ -55,6 +55,8 @@ practitioners' 2–5% single-stock caps once estimation error is considered.
 
 ## Costs and taxes
 
-A 1% yearly fee takes about 30% of a 40-year outcome. Paying tax on gains every year
-instead of deferring costs even more. Prefer low-cost index funds, tax-advantaged
+A 1% yearly fee takes about 30% of a 40-year lump-sum outcome, and about a quarter
+of a 40-year monthly-savings plan (later dollars pay the fee for fewer years).
+`goal_plan.py` prints the exact cost for the user's plan. Paying tax on gains every
+year instead of deferring costs even more. Prefer low-cost index funds, tax-advantaged
 accounts and low turnover.

@@ -77,24 +77,31 @@ python -m stockquant backtest --tickers GEV ETN PWR VRT --strategy momentum --to
    two lines.
 2. **Measure first.** Run `regime_check.py` plus `quant_snapshot.py` or
    `theme_screen.py`. These numbers anchor everything after.
-3. **Gather fundamentals.** Use primary sources first: earnings releases, 10-Q and
+3. **Explain the latest move before anything else.** If the price moved sharply
+   in recent weeks, spend your first searches on why: order cancellations,
+   guidance cuts, policy or election news, rate moves, financing stress. The
+   freshest risk is usually the one that matters most for an entry decision, and
+   it is the easiest to miss when the search budget runs out.
+4. **Gather fundamentals.** Use primary sources first: earnings releases, 10-Q and
    10-K filings, investor presentations, transcripts. Then reputable media. Get the
    latest quarter's revenue growth, margins, guidance, backlog or orders, free cash
    flow, debt and dilution. For a broad theme, split the research into parallel
    subagents by sub-area if you can. Web searches may share one budget across all
    agents (about 200 per turn), so give each one about 10–20 and ask for dated,
    linked facts.
-4. **Value it.** Follow `references/valuation-cheatsheet.md`. Always run the
+5. **Value it.** Follow `references/valuation-cheatsheet.md`. Always run the
    cyclical check: a very low P/E on sales growing 75%+ often marks the top of a
    boom, not a bargain.
-5. **Check for a bubble** (themes and hot stocks) with
+6. **Check for a bubble** (themes and hot stocks) with
    `references/bubble-checklist.md`, and score it.
-6. **Decide.** Pick one verdict class below. Give a size range, an entry plan, a
+7. **Decide.** Pick one verdict class below. Give a size range, an entry plan, a
    review trigger and the bear case in a sentence.
-7. **Write it up.** Save the note as markdown (default
+8. **Write it up.** Save the note as markdown (default
    `research/<topic>-<YYYY-MM-DD>.md`, unless the user names a place) using
    `references/report-templates.md`. In chat, give a short summary: verdict, the
-   three numbers that matter, and the main risk.
+   three numbers that matter, and the main risk. Keep the note's qualifiers in
+   the summary ("reportedly", "one source", "unverified"): a summary that drops
+   them states rumors as facts.
 
 ## Verdict classes
 
@@ -124,7 +131,10 @@ Explain these, don't dictate them.
 - **Satellites.** Buy in stages, for example thirds. A stock below its 200-day
   average with negative 12-month momentum often keeps falling, since momentum
   persists over months. Waiting for a base or trend repair costs a little upside
-  and avoids many −60% outcomes.
+  and avoids many −60% outcomes. If you still suggest a first tranche in a name
+  that is below its 200-day average, call it an exception and give the reason,
+  in the note and in the chat summary, so the advice does not contradict the
+  rule.
 - **Rebalancing.** Trim a satellite once it exceeds about 1.5x its target weight,
   and review the thesis each quarter against named triggers. Selling because a
   stock fell is not the rule; selling because the thesis broke is.

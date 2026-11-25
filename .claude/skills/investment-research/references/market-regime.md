@@ -2,7 +2,9 @@
 
 Run `python regime_check.py --extra SMH GRID <theme ETFs>`, then add macro facts from
 dated sources: the policy rate and the next central-bank meeting, the 10-year yield,
-the latest CPI or PCE, earnings-season tone and major policy events.
+the latest CPI or PCE, earnings-season tone and major policy events. Even on a tight
+search budget, get the first three (one search usually covers them): rates and
+inflation decide how much any valuation is worth.
 
 ## Reading it
 

@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-The answer uses historical market evidence with numbers (for example the S&P 500's roughly 10% long-run return or how often it reached 50x over a horizon).
+The answer uses historical market evidence about this specific goal with numbers, such as how often this savings plan or a 50x multiple was reached over the user's horizon in past market periods, not only a generic long-run average return.

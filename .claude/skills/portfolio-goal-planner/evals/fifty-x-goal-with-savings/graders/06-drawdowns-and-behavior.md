@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-The answer warns about large drawdowns with a number and gives a behavior rule for crashes (for example keep contributing or rebalance).
+The answer gives a drawdown estimate as a number for the recommended portfolio itself (not only for a single stock) and a behavior rule for crashes, such as keep contributing or rebalance.
