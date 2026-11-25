@@ -13,6 +13,7 @@ Key caveats the report must carry:
 | Theme | Group | N | 1y | 3y CAGR | From 1y high | Vol 1y |
 |---|---|---:|---:|---:|---:|---:|
 | Memory | compute | 3 | 140.6% | 89.2% | -53.5% | 70% |
+| Data storage | compute | 3 | 122.9% | 129.3% | -64.0% | 85% |
 | Edge AI SoC | edge_emerging | 2 | 102.4% | 44.3% | -22.9% | 49% |
 | AI cybersecurity | edge_emerging | 2 | 81.0% | 51.9% | -20.0% | 53% |
 | Analog/edge | edge_emerging | 2 | 56.5% | 24.4% | -21.3% | 45% |
@@ -49,7 +50,7 @@ Key caveats the report must carry:
 | Uranium | power_grid | 2 | -39.4% | 5.8% | -63.2% | 62% |
 | Quantum | edge_emerging | 3 | -63.3% | 95.2% | -71.4% | 95% |
 | SMR developer | power_grid | 3 | -77.2% | 55.2% | -81.0% | 89% |
-| Storage | power_grid | 2 | -79.8% | -3.1% | -87.4% | 103% |
+| Battery storage | power_grid | 2 | -79.8% | -3.1% | -87.4% | 103% |
 
 ## Leverage illustration: Nasdaq-100 (QQQ) 1x vs simulated daily-reset 2x/3x since March 1999
 

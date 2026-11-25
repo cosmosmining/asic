@@ -148,3 +148,19 @@ def test_prices_align_to_calendar(tmp_path):
     px = store.prices(["AAA", "BBB"], calendar="AAA")
     assert px.index.equals(us)
     assert len(store.prices(["AAA", "BBB"])) == len(us) + 1
+
+
+def test_theme_baskets_do_not_overwrite_across_groups():
+    from stockquant.report import run_theme_analysis
+
+    idx = pd.bdate_range("2023-01-02", periods=320)
+    rng = np.random.default_rng(12)
+    px = pd.DataFrame({t: 100 * np.exp(np.cumsum(0.01 * rng.standard_normal(320))) for t in "ABCD"}, index=idx)
+    meta = pd.DataFrame(
+        {"group": ["power_grid", "power_grid", "compute", "compute"], "theme": ["Storage"] * 4,
+         "name": list("ABCD"), "stage": ["leader"] * 4, "note": [""] * 4},
+        index=list("ABCD"),
+    )
+    out = run_theme_analysis(px, meta)
+    storage = [k for k in out["indices"] if k.startswith("Storage")]
+    assert len(storage) == 2
