@@ -133,3 +133,18 @@ def test_parse_chart_payload_uses_exchange_dates_and_drops_nulls():
 def test_parse_chart_payload_error():
     with pytest.raises(PriceFetchError):
         parse_chart_payload("BAD", {"chart": {"result": None, "error": {"code": "Not Found", "description": "No data"}}})
+
+
+def test_prices_align_to_calendar(tmp_path):
+    from stockquant.data import PriceStore
+
+    us = pd.bdate_range("2024-01-01", periods=30)
+    extra = pd.DatetimeIndex([pd.Timestamp("2024-01-06")])  # a Saturday "foreign" session
+    for name, idx in (("AAA", us), ("BBB", us.union(extra))):
+        df = pd.DataFrame({"close": 1.0, "adjclose": np.arange(len(idx), dtype=float) + 1, "volume": 1.0}, index=idx)
+        df.index.name = "date"
+        df.to_csv(tmp_path / f"{name}.csv")
+    store = PriceStore(cache_dir=tmp_path, offline=True)
+    px = store.prices(["AAA", "BBB"], calendar="AAA")
+    assert px.index.equals(us)
+    assert len(store.prices(["AAA", "BBB"])) == len(us) + 1

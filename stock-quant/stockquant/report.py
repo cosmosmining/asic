@@ -421,15 +421,14 @@ def build_report(store: PriceStore | None = None, out_dir: Path = OUTPUT_DIR, re
     out_dir.mkdir(parents=True, exist_ok=True)
     meta = U.meta()
     all_t = U.tickers()
-    px = store.prices(all_t, refresh=refresh)
+    # Rows are SPY's own trading days, so every N-row window is N US sessions.
+    px = store.prices(all_t, refresh=refresh, calendar="SPY")
+    us_idx = px.index
     close = store.panel(all_t, "close")
     volume = store.panel(all_t, "volume")
-    # Use the US calendar (SPY) as the master index for screens and backtests.
-    us_idx = px["SPY"].dropna().index
-    px = px.reindex(us_idx).ffill(limit=5)
     fundamentals = load_fundamentals()
 
-    screens = run_screens(px, close.reindex(us_idx).ffill(limit=5), volume.reindex(us_idx), meta, fundamentals)
+    screens = run_screens(px, close.reindex(close.index.union(us_idx)).ffill(limit=5).reindex(us_idx), volume.reindex(us_idx), meta, fundamentals)
     themes = run_theme_analysis(px, meta)
     suites = run_backtests(px)
     goals = run_goal_analysis(px, suites)

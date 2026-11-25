@@ -18,7 +18,10 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-from scipy import stats
+
+
+def _norm_cdf(z: float) -> float:
+    return 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
 
 
 def years_to_multiple(multiple: float, annual_return: float) -> float:
@@ -47,7 +50,7 @@ def prob_lump_sum_multiple(mean: float, vol: float, multiple: float, years: floa
     """P(lump sum grows >= multiple x in ``years``) under i.i.d. lognormal returns."""
     mu, sig = lognormal_params(mean, vol)
     z = (math.log(multiple) - mu * years) / (sig * math.sqrt(years))
-    return float(1.0 - stats.norm.cdf(z))
+    return float(1.0 - _norm_cdf(z))
 
 
 def future_value(

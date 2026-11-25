@@ -1,6 +1,5 @@
 numpy>=1.26
 pandas>=2.2
-scipy>=1.11
 requests>=2.31
 yfinance>=0.2.40  # optional fallback source and `fundamentals` command
 pytest>=8  # tests

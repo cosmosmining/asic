@@ -47,7 +47,7 @@ def cmd_screen(args) -> int:
     store = _store(args)
     members = args.tickers or U.tickers(_groups(args.group))
     cols = list(dict.fromkeys(members + ["SPY"]))
-    px = store.prices(cols)
+    px = store.prices(cols, calendar="SPY")
     close = store.panel(cols, "close")
     vol = store.panel(cols, "volume")
     feat = S.features_table(px, bench="SPY", volume=vol, close=close)
@@ -74,8 +74,7 @@ def cmd_backtest(args) -> int:
     store = _store(args)
     universe = args.tickers or [t for t in U.tickers(_groups(args.group)) if "." not in t]
     needed = list(dict.fromkeys(universe + ["SPY", "BIL", "VTI"]))
-    px = store.prices(needed)
-    px = px.reindex(px["SPY"].dropna().index).ffill(limit=5)
+    px = store.prices(needed, calendar="SPY")
     if args.strategy == "momentum":
         fn = ST.momentum_top_n(universe, n=args.top, lookback=args.lookback, rank_by=args.rank_by,
                                weighting=args.weighting, max_weight=args.max_weight,
@@ -105,7 +104,7 @@ def cmd_goal(args) -> int:
     print(f"CAGR needed for {args.multiple:g}x in {args.years} years: {G.required_cagr(args.multiple, args.years):.1%}")
     if args.bootstrap:
         store = _store(args)
-        s = store.prices([args.bootstrap])[args.bootstrap].dropna()
+        s = store.prices([args.bootstrap], calendar=args.bootstrap)[args.bootstrap].dropna()
         hist = M.monthly_returns(s).to_numpy()
         sim = G.simulate(args.initial, args.monthly, args.years, hist_monthly=hist, fee=args.fee,
                          contrib_growth=args.raise_pct, n_paths=args.paths)
@@ -128,7 +127,7 @@ def cmd_goal(args) -> int:
 
 def cmd_metrics(args) -> int:
     store = _store(args)
-    px = store.prices(list(dict.fromkeys(args.tickers + ["SPY"])))
+    px = store.prices(list(dict.fromkeys(args.tickers + ["SPY"])), calendar="SPY")
     rows = {}
     for t in args.tickers:
         s = px[t].dropna().loc[args.start:]

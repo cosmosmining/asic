@@ -1,0 +1,215 @@
+ticker,name,group,theme,kind,stage,note
+SPY,SPDR S&P 500 ETF,core,US large cap,etf,core,Benchmark; longest daily history (1993)
+VOO,Vanguard S&P 500 ETF,core,US large cap,etf,core,0.03% fee
+IVV,iShares Core S&P 500 ETF,core,US large cap,etf,core,0.03% fee
+VTI,Vanguard Total Stock Market ETF,core,US total market,etf,core,Whole US market incl. small/mid caps
+QQQ,Invesco QQQ Trust,core,US growth,etf,core,Nasdaq-100; history since 1999
+QQQM,Invesco Nasdaq 100 ETF,core,US growth,etf,core,Cheaper share class of QQQ
+VGT,Vanguard Information Technology ETF,core,US tech,etf,growth,Tech sector; concentrated in mega caps
+SCHG,Schwab US Large-Cap Growth ETF,core,US growth,etf,growth,Low-cost large growth
+RSP,Invesco S&P 500 Equal Weight ETF,core,US large cap,etf,core,Reduces mega-cap concentration
+VXUS,Vanguard Total International Stock ETF,core,International,etf,core,Ex-US developed + emerging
+VEA,Vanguard FTSE Developed Markets ETF,core,International,etf,core,Developed ex-US
+VWO,Vanguard FTSE Emerging Markets ETF,core,International,etf,core,Emerging markets
+EFA,iShares MSCI EAFE ETF,core,International,etf,core,Long history for dual-momentum tests
+AVUV,Avantis US Small Cap Value ETF,core,US small value,etf,factor,Value + size premium tilt
+QUAL,iShares MSCI USA Quality Factor ETF,core,US quality,etf,factor,Quality factor
+MTUM,iShares MSCI USA Momentum Factor ETF,core,US momentum,etf,factor,Momentum factor
+SCHD,Schwab US Dividend Equity ETF,core,US dividend,etf,defensive,Dividend quality
+VIG,Vanguard Dividend Appreciation ETF,core,US dividend growth,etf,defensive,Dividend growers
+BND,Vanguard Total Bond Market ETF,core,Bonds,etf,defensive,Aggregate bonds
+AGG,iShares Core US Aggregate Bond ETF,core,Bonds,etf,defensive,Aggregate bonds (2003)
+IEF,iShares 7-10 Year Treasury Bond ETF,core,Bonds,etf,defensive,Intermediate Treasuries
+TLT,iShares 20+ Year Treasury Bond ETF,core,Bonds,etf,defensive,Long Treasuries
+GLD,SPDR Gold Shares,core,Gold,etf,defensive,Crisis diversifier
+BIL,SPDR Bloomberg 1-3 Month T-Bill ETF,core,Cash,etf,cash,Cash proxy for backtests
+SGOV,iShares 0-3 Month Treasury Bond ETF,core,Cash,etf,cash,Dry powder
+XLK,Technology Select Sector SPDR,sector,Technology,etf,sector,Sector rotation universe
+XLF,Financial Select Sector SPDR,sector,Financials,etf,sector,Sector rotation universe
+XLE,Energy Select Sector SPDR,sector,Energy,etf,sector,Sector rotation universe
+XLV,Health Care Select Sector SPDR,sector,Health care,etf,sector,Sector rotation universe
+XLI,Industrial Select Sector SPDR,sector,Industrials,etf,sector,Sector rotation universe
+XLU,Utilities Select Sector SPDR,sector,Utilities,etf,sector,Sector rotation universe
+XLP,Consumer Staples Select Sector SPDR,sector,Staples,etf,sector,Sector rotation universe
+XLY,Consumer Discretionary Select Sector SPDR,sector,Discretionary,etf,sector,Sector rotation universe
+XLB,Materials Select Sector SPDR,sector,Materials,etf,sector,Sector rotation universe
+SMH,VanEck Semiconductor ETF,thematic_etf,Semiconductors,etf,leader,AI compute picks-and-shovels basket
+SOXX,iShares Semiconductor ETF,thematic_etf,Semiconductors,etf,leader,Broader semis basket
+GRID,First Trust Nasdaq Clean Edge Smart Grid Infrastructure,thematic_etf,Power grid,etf,leader,Grid equipment & utilities
+PAVE,Global X US Infrastructure Development ETF,thematic_etf,Infrastructure,etf,leader,US construction & equipment
+NLR,VanEck Uranium and Nuclear ETF,thematic_etf,Nuclear,etf,emerging,Nuclear utilities + fuel
+NUKZ,Range Nuclear Renaissance Index ETF,thematic_etf,Nuclear,etf,emerging,Nuclear incl. SMR developers
+URNM,Sprott Uranium Miners ETF,thematic_etf,Uranium,etf,emerging,Uranium miners + physical uranium
+URA,Global X Uranium ETF,thematic_etf,Uranium,etf,emerging,Uranium & nuclear components
+COPX,Global X Copper Miners ETF,thematic_etf,Copper,etf,emerging,Copper for grid & data centers
+DTCR,Global X Data Center & Digital Infrastructure ETF,thematic_etf,Data centers,etf,emerging,Data-center REITs & infra
+AIQ,Global X Artificial Intelligence & Technology ETF,thematic_etf,AI broad,etf,leader,Broad AI basket
+CHAT,Roundhill Generative AI & Technology ETF,thematic_etf,AI broad,etf,emerging,Generative AI basket
+BOTZ,Global X Robotics & Artificial Intelligence ETF,thematic_etf,Robotics,etf,emerging,Robotics & automation
+ROBO,ROBO Global Robotics and Automation ETF,thematic_etf,Robotics,etf,emerging,Robotics & automation
+QTUM,Defiance Quantum ETF,thematic_etf,Quantum,etf,speculative,Quantum + ML hardware
+CIBR,First Trust Nasdaq Cybersecurity ETF,thematic_etf,Cybersecurity,etf,leader,Cybersecurity
+IGV,iShares Expanded Tech-Software Sector ETF,thematic_etf,Software,etf,leader,Software / AI apps
+UFO,Procure Space ETF,thematic_etf,Space,etf,speculative,Space economy
+ICLN,iShares Global Clean Energy ETF,thematic_etf,Clean energy,etf,cautionary,2020-21 hot theme (lesson)
+ARKK,ARK Innovation ETF,thematic_etf,Disruptive growth,etf,cautionary,2020-21 hot theme (lesson)
+ZAP,Global X US Electrification ETF,thematic_etf,Electrification,etf,emerging,Electrification
+VOLT,Tema Electrification ETF,thematic_etf,Electrification,etf,emerging,Electrification (active)
+GEV,GE Vernova,power_grid,Gas turbines & grid,stock,leader,Turbine backlog + grid equipment
+ETN,Eaton,power_grid,Electrical equipment,stock,leader,Data-center power distribution
+VRT,Vertiv,power_grid,DC power & cooling,stock,leader,Power + liquid cooling for AI racks
+PWR,Quanta Services,power_grid,Grid EPC,stock,leader,Transmission & substation construction
+HUBB,Hubbell,power_grid,Grid components,stock,leader,Utility & electrical components
+NVT,nVent Electric,power_grid,DC power & cooling,stock,leader,Enclosures + liquid cooling
+POWL,Powell Industries,power_grid,Switchgear,stock,emerging,Custom switchgear; small cap
+MYRG,MYR Group,power_grid,Grid EPC,stock,emerging,Transmission contractor
+EME,EMCOR Group,power_grid,DC construction,stock,leader,Electrical/mechanical contractor
+FIX,Comfort Systems USA,power_grid,DC construction,stock,leader,Mechanical/HVAC for data centers
+STRL,Sterling Infrastructure,power_grid,DC construction,stock,emerging,Data-center site development
+PRIM,Primoris Services,power_grid,Grid EPC,stock,emerging,Utility & power EPC
+MTZ,MasTec,power_grid,Grid EPC,stock,leader,Power delivery & communications EPC
+WCC,WESCO International,power_grid,Electrical distribution,stock,leader,Electrical/data-center distribution
+GNRC,Generac,power_grid,Backup power,stock,emerging,Data-center backup generators
+AMSC,American Superconductor,power_grid,Grid tech,stock,speculative,Grid power-quality systems
+IESC,IES Holdings,power_grid,DC construction,stock,emerging,Electrical infrastructure contractor
+CEG,Constellation Energy,power_grid,Nuclear power,stock,leader,Largest US nuclear fleet; hyperscaler PPAs
+VST,Vistra,power_grid,IPP power,stock,leader,Nuclear + gas fleet
+TLN,Talen Energy,power_grid,IPP power,stock,emerging,Nuclear-adjacent data-center deals
+NRG,NRG Energy,power_grid,IPP power,stock,emerging,Gas generation growth
+OKLO,Oklo,power_grid,SMR developer,stock,speculative,Pre-revenue advanced fission
+SMR,NuScale Power,power_grid,SMR developer,stock,speculative,SMR design; early revenue
+NNE,Nano Nuclear Energy,power_grid,SMR developer,stock,speculative,Pre-revenue microreactors
+CCJ,Cameco,power_grid,Uranium,stock,leader,Uranium + Westinghouse stake
+LEU,Centrus Energy,power_grid,Nuclear fuel,stock,emerging,HALEU enrichment
+UEC,Uranium Energy,power_grid,Uranium,stock,speculative,US uranium developer
+BWXT,BWX Technologies,power_grid,Nuclear components,stock,leader,Naval + commercial nuclear
+BE,Bloom Energy,power_grid,On-site power,stock,emerging,Fuel cells behind the meter
+CAT,Caterpillar,power_grid,On-site power,stock,leader,Gensets/turbines (Solar Turbines)
+CMI,Cummins,power_grid,On-site power,stock,leader,Backup gensets
+MOD,Modine Manufacturing,power_grid,DC cooling,stock,emerging,Data-center cooling
+TT,Trane Technologies,power_grid,DC cooling,stock,leader,Chillers & thermal management
+JCI,Johnson Controls,power_grid,DC cooling,stock,leader,Chillers & building systems
+AAON,AAON,power_grid,DC cooling,stock,emerging,HVAC + liquid cooling
+NEE,NextEra Energy,power_grid,Utilities,stock,leader,Largest renewables developer
+ETR,Entergy,power_grid,Utilities,stock,leader,Gulf Coast data-center load
+SO,Southern Company,power_grid,Utilities,stock,leader,Southeast load growth
+D,Dominion Energy,power_grid,Utilities,stock,leader,Virginia data-center hub
+AEP,American Electric Power,power_grid,Utilities,stock,leader,Transmission + load growth
+WMB,Williams Companies,power_grid,Gas midstream,stock,leader,Gas pipes + behind-meter power
+KMI,Kinder Morgan,power_grid,Gas midstream,stock,leader,Gas pipelines
+EQT,EQT,power_grid,Natural gas,stock,leader,Appalachian gas for data centers
+FCX,Freeport-McMoRan,power_grid,Copper,stock,leader,Copper for grid buildout
+SCCO,Southern Copper,power_grid,Copper,stock,leader,Copper reserves
+FLNC,Fluence Energy,power_grid,Storage,stock,speculative,Grid batteries
+EOSE,Eos Energy,power_grid,Storage,stock,speculative,Zinc batteries; unprofitable
+ABBNY,ABB (ADR),power_grid,Electrical equipment,stock,leader,Electrification & motion
+SBGSY,Schneider Electric (ADR),power_grid,Electrical equipment,stock,leader,Data-center power & cooling
+ENR.DE,Siemens Energy,power_grid,Gas turbines & grid,stock,leader,Turbines + grid technology (EUR)
+PRY.MI,Prysmian,power_grid,Cables,stock,leader,HV cables (EUR)
+6501.T,Hitachi,power_grid,Grid equipment,stock,leader,Hitachi Energy transformers (JPY)
+267260.KS,HD Hyundai Electric,power_grid,Transformers,stock,emerging,Transformer exporter (KRW)
+NVDA,NVIDIA,compute,Accelerators,stock,leader,AI GPUs + networking + software
+AVGO,Broadcom,compute,Custom silicon & networking,stock,leader,Custom ASICs + Ethernet switching
+AMD,Advanced Micro Devices,compute,Accelerators,stock,leader,MI-series GPUs + CPUs
+MRVL,Marvell Technology,compute,Custom silicon & networking,stock,emerging,Custom ASICs + optical DSPs
+TSM,Taiwan Semiconductor (ADR),compute,Foundry,stock,leader,Leading-edge foundry + CoWoS
+ASML,ASML Holding,compute,Semicap,stock,leader,EUV lithography monopoly
+AMAT,Applied Materials,compute,Semicap,stock,leader,Deposition/etch
+LRCX,Lam Research,compute,Semicap,stock,leader,Etch/deposition; memory exposure
+KLAC,KLA,compute,Semicap,stock,leader,Process control
+MU,Micron Technology,compute,Memory,stock,leader,HBM + DRAM cycle
+SNDK,SanDisk,compute,Storage,stock,emerging,NAND flash (spun off 2025)
+WDC,Western Digital,compute,Storage,stock,emerging,HDD for AI data lakes
+STX,Seagate Technology,compute,Storage,stock,emerging,HDD (HAMR)
+ANET,Arista Networks,compute,Networking,stock,leader,AI Ethernet switching
+CSCO,Cisco Systems,compute,Networking,stock,leader,Networking incumbent
+CRDO,Credo Technology,compute,Connectivity,stock,emerging,Active electrical cables / SerDes
+ALAB,Astera Labs,compute,Connectivity,stock,emerging,PCIe/CXL retimers & switches
+COHR,Coherent,compute,Optical,stock,emerging,Optical transceivers & lasers
+LITE,Lumentum,compute,Optical,stock,emerging,Lasers for optics / CPO
+CIEN,Ciena,compute,Optical,stock,leader,Data-center interconnect optics
+FN,Fabrinet,compute,Optical,stock,emerging,Optical contract manufacturing
+AAOI,Applied Optoelectronics,compute,Optical,stock,speculative,Transceivers; volatile
+GLW,Corning,compute,Optical fiber,stock,leader,Fiber & connectivity
+TSEM,Tower Semiconductor,compute,Silicon photonics,stock,emerging,SiPho foundry
+MTSI,MACOM Technology,compute,Optical/analog,stock,emerging,Optical & RF semis
+AMKR,Amkor Technology,compute,Advanced packaging,stock,emerging,OSAT / advanced packaging
+ONTO,Onto Innovation,compute,Advanced packaging,stock,emerging,Packaging inspection
+CAMT,Camtek,compute,Advanced packaging,stock,emerging,HBM/packaging inspection
+CLS,Celestica,compute,Servers & racks,stock,emerging,AI switch/server manufacturing
+DELL,Dell Technologies,compute,Servers & racks,stock,leader,AI servers
+SMCI,Super Micro Computer,compute,Servers & racks,stock,speculative,AI servers; governance risk
+HPE,Hewlett Packard Enterprise,compute,Servers & racks,stock,leader,Servers + networking (Juniper)
+EQIX,Equinix,compute,Data-center REIT,stock,leader,Interconnection data centers
+DLR,Digital Realty,compute,Data-center REIT,stock,leader,Hyperscale data centers
+CRWV,CoreWeave,compute,Neocloud,stock,speculative,GPU cloud; heavy debt
+NBIS,Nebius Group,compute,Neocloud,stock,speculative,GPU cloud
+ORCL,Oracle,compute,Cloud,stock,leader,OCI + large AI contracts
+IREN,IREN,compute,Miner-to-AI hosting,stock,speculative,Bitcoin miner pivoting to AI cloud
+CIFR,Cipher Mining,compute,Miner-to-AI hosting,stock,speculative,HPC hosting leases
+WULF,TeraWulf,compute,Miner-to-AI hosting,stock,speculative,HPC hosting leases
+APLD,Applied Digital,compute,Miner-to-AI hosting,stock,speculative,AI data-center developer
+CORZ,Core Scientific,compute,Miner-to-AI hosting,stock,speculative,HPC colocation
+HUT,Hut 8,compute,Miner-to-AI hosting,stock,speculative,Power + HPC hosting
+GLXY,Galaxy Digital,compute,Miner-to-AI hosting,stock,speculative,Helios AI data-center campus
+000660.KS,SK hynix,compute,Memory,stock,leader,HBM leader (KRW)
+MSFT,Microsoft,compute,Hyperscaler,stock,leader,Azure + OpenAI stake
+GOOGL,Alphabet,compute,Hyperscaler,stock,leader,Google Cloud + TPUs
+AMZN,Amazon,compute,Hyperscaler,stock,leader,AWS + Trainium
+META,Meta Platforms,compute,Hyperscaler,stock,leader,AI capex for ads/assistants
+QCOM,Qualcomm,edge_emerging,Edge AI SoC,stock,leader,Phone/PC/auto NPUs
+ARM,Arm Holdings,edge_emerging,Edge AI IP,stock,leader,CPU IP royalties; rich valuation
+AAPL,Apple,edge_emerging,Edge AI devices,stock,leader,On-device AI installed base
+NXPI,NXP Semiconductors,edge_emerging,Auto/industrial edge,stock,leader,Auto & industrial MCUs
+ADI,Analog Devices,edge_emerging,Analog/edge,stock,leader,Industrial & auto analog
+TXN,Texas Instruments,edge_emerging,Analog/edge,stock,leader,Analog & embedded
+MCHP,Microchip Technology,edge_emerging,MCU/edge,stock,leader,Embedded controllers
+STM,STMicroelectronics,edge_emerging,Power & edge semis,stock,leader,SiC + MCUs
+IFNNY,Infineon (ADR),edge_emerging,Power semis,stock,leader,Power semis incl. 800V DC
+ON,ON Semiconductor,edge_emerging,Power semis,stock,leader,SiC power + sensors
+LSCC,Lattice Semiconductor,edge_emerging,Edge FPGA,stock,emerging,Low-power FPGAs
+AMBA,Ambarella,edge_emerging,Edge AI vision,stock,emerging,Edge vision SoCs
+SYNA,Synaptics,edge_emerging,Edge AI IoT,stock,emerging,IoT edge processors
+SLAB,Silicon Labs,edge_emerging,IoT wireless,stock,emerging,IoT SoCs
+CEVA,CEVA,edge_emerging,Edge AI IP,stock,speculative,DSP/NPU IP licensing
+SITM,SiTime,edge_emerging,Timing,stock,emerging,MEMS timing for AI systems
+POWI,Power Integrations,edge_emerging,Power semis,stock,emerging,GaN power conversion
+NVTS,Navitas Semiconductor,edge_emerging,Power semis,stock,speculative,GaN/SiC for 800V DC; unprofitable
+MBLY,Mobileye,edge_emerging,Autonomy,stock,emerging,ADAS chips
+TSLA,Tesla,edge_emerging,Physical AI,stock,speculative,Robotaxi/Optimus optionality; rich valuation
+ISRG,Intuitive Surgical,edge_emerging,Robotics,stock,leader,Surgical robotics
+TER,Teradyne,edge_emerging,Robotics & test,stock,emerging,Semi test + cobots
+ROK,Rockwell Automation,edge_emerging,Industrial automation,stock,leader,Factory automation
+SYM,Symbotic,edge_emerging,Warehouse robotics,stock,speculative,Warehouse automation
+CGNX,Cognex,edge_emerging,Machine vision,stock,emerging,Industrial vision
+HSAI,Hesai Group,edge_emerging,Lidar,stock,speculative,Lidar for autos/robots
+2454.TW,MediaTek,edge_emerging,Edge AI SoC,stock,leader,Phone SoCs + ASIC services (TWD)
+IONQ,IonQ,edge_emerging,Quantum,stock,speculative,Quantum computing; tiny revenue
+RGTI,Rigetti Computing,edge_emerging,Quantum,stock,speculative,Quantum; pre-commercial
+QBTS,D-Wave Quantum,edge_emerging,Quantum,stock,speculative,Quantum annealing
+RKLB,Rocket Lab,edge_emerging,Space,stock,speculative,Launch + spacecraft
+ASTS,AST SpaceMobile,edge_emerging,Space,stock,speculative,Satellite-to-phone; pre-revenue
+PLTR,Palantir Technologies,edge_emerging,AI software,stock,emerging,AI platform; very rich valuation
+CRWD,CrowdStrike,edge_emerging,AI cybersecurity,stock,leader,Endpoint security
+PANW,Palo Alto Networks,edge_emerging,AI cybersecurity,stock,leader,Security platform
+NET,Cloudflare,edge_emerging,Edge cloud,stock,emerging,Edge network + inference
+NOW,ServiceNow,edge_emerging,AI software,stock,leader,Enterprise AI agents
+COST,Costco,compounder,Quality compounder,stock,leader,Membership retail
+V,Visa,compounder,Quality compounder,stock,leader,Payments network
+MA,Mastercard,compounder,Quality compounder,stock,leader,Payments network
+BRK-B,Berkshire Hathaway,compounder,Quality compounder,stock,leader,Conglomerate; cash rich
+LLY,Eli Lilly,compounder,Quality compounder,stock,leader,GLP-1 franchise
+SPGI,S&P Global,compounder,Quality compounder,stock,leader,Ratings & indices
+MCO,Moody's,compounder,Quality compounder,stock,leader,Ratings
+SPYM,SPDR Portfolio S&P 500 ETF,core,US large cap,etf,core,Formerly SPLG; 0.02% fee
+VUG,Vanguard Growth ETF,core,US growth,etf,growth,Large-cap growth
+DGRO,iShares Core Dividend Growth ETF,core,US dividend growth,etf,defensive,Dividend growers
+RACK,VanEck Data Center Supply Chain ETF,thematic_etf,Data centers,etf,emerging,"Launched Jun 2026; chips, power, cooling, grid"
+IVEP,Wedbush AI Power & Infrastructure ETF,thematic_etf,AI power,etf,emerging,Launched 2026; IVES Power 30
+AIPO,Defiance AI & Power Infrastructure ETF,thematic_etf,AI power,etf,emerging,Launched 2025-26; top holding PWR
+7011.T,Mitsubishi Heavy Industries,power_grid,Gas turbines & grid,stock,leader,Large gas turbines; ~37 GW backlog (JPY)
+ET,Energy Transfer,power_grid,Gas midstream,stock,leader,Gas pipelines to data-center hubs
+XEL,Xcel Energy,power_grid,Utilities,stock,leader,Large capex plan + data-center contracts
+ORA,Ormat Technologies,power_grid,Geothermal,stock,emerging,Geothermal baseload
+WOLF,Wolfspeed,edge_emerging,Power semis,stock,speculative,SiC; restructured in 2025
+005930.KS,Samsung Electronics,compute,Memory,stock,leader,HBM4/DRAM + foundry (KRW)

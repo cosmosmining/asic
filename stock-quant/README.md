@@ -80,3 +80,17 @@ strong, orderly trend. It says nothing about value: see the valuation flags
 
 The written study is in `reports/` and the research notes behind it in
 `research_notes/`.
+
+## Claude skills built on this toolkit
+
+Two project skills live in `.claude/skills/` at the repository root, so Claude
+sessions on this branch pick them up automatically:
+
+| Skill | Use it for |
+|---|---|
+| `investment-research` | Researching a stock, ETF, sector or theme (e.g. AI power, edge AI): quant snapshot, fundamentals, valuation, bubble checklist, base rates, sizing |
+| `portfolio-goal-planner` | Turning a goal ("50x", "$1M by 45") into required-return math, 1926+ history replay, Monte Carlo odds and a core-satellite allocation |
+
+Each skill bundles a copy of `stockquant/` so it also works when installed into
+a Claude profile. After changing the toolkit, run `./sync_skills.sh` to refresh
+those copies.

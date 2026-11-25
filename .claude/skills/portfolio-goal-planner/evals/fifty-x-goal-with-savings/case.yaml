@@ -1,0 +1,7 @@
+schema_version: "1.1"
+name: fifty-x-goal-with-savings
+expected_outcome: |
+  An honest, numbers-first plan saved as markdown: the return the plan needs, the difference
+  between 50x of a lump sum and 50x of all contributions, historical S&P 500 evidence, a range
+  of outcomes with probabilities, an allocation with percentages (index core plus a capped AI
+  satellite and per-stock caps), expected drawdowns and behavior rules, and no guarantee of 50x.

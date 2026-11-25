@@ -13,6 +13,7 @@ expects. Raw close and volume are kept for liquidity filters.
 from __future__ import annotations
 
 import logging
+import os
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -24,7 +25,8 @@ import requests
 log = logging.getLogger(__name__)
 
 PKG_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_CACHE = PKG_ROOT / "data" / "cache"
+# STOCKQUANT_CACHE lets a bundled copy (e.g. inside a skill) keep its cache elsewhere.
+DEFAULT_CACHE = Path(os.environ.get("STOCKQUANT_CACHE") or PKG_ROOT / "data" / "cache")
 CHART_HOSTS = (
     "https://query1.finance.yahoo.com",
     "https://query2.finance.yahoo.com",
@@ -102,7 +104,7 @@ class PriceStore:
     offline: never touch the network; use whatever is cached.
     """
 
-    cache_dir: Path = DEFAULT_CACHE
+    cache_dir: Path = field(default_factory=lambda: Path(os.environ.get("STOCKQUANT_CACHE") or DEFAULT_CACHE))
     max_age_hours: float = 18.0
     pause: float = 0.4
     offline: bool = False
@@ -234,14 +236,29 @@ class PriceStore:
         out.index.name = "date"
         return out
 
-    def prices(self, tickers: Iterable[str], start: str = "1990-01-01", refresh: bool = False) -> pd.DataFrame:
-        """Adjusted closes, aligned on the union of trading dates.
+    def prices(
+        self,
+        tickers: Iterable[str],
+        start: str = "1990-01-01",
+        refresh: bool = False,
+        calendar: str | None = None,
+    ) -> pd.DataFrame:
+        """Adjusted closes, one column per ticker.
 
-        Short gaps (holidays on foreign exchanges) are forward-filled up to 5 days;
-        values before a ticker's first trade stay NaN.
+        With ``calendar`` (e.g. "SPY") rows are exactly that ticker's trading
+        days, so "last 252 rows" always means one year of that market; other
+        listings take their latest close on or before each date. Without it,
+        rows are the union of all tickers' dates. Gaps are forward-filled up to
+        5 days; values before a ticker's first trade stay NaN.
         """
         px = self.panel(tickers, "adjclose", start=start, refresh=refresh)
         if px.empty:
             return px
+        if calendar:
+            try:
+                cal = self.history(calendar, start=start, refresh=refresh)["adjclose"].dropna().index
+                return px.reindex(px.index.union(cal)).ffill(limit=5).reindex(cal)
+            except Exception as exc:  # noqa: BLE001
+                log.warning("calendar %s unavailable (%s); using the union of dates", calendar, exc)
         # ffill cannot fill before a series' first value, so pre-listing NaNs survive.
         return px.ffill(limit=5)
