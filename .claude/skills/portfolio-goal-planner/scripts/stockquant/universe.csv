@@ -100,8 +100,8 @@ KMI,Kinder Morgan,power_grid,Gas midstream,stock,leader,Gas pipelines
 EQT,EQT,power_grid,Natural gas,stock,leader,Appalachian gas for data centers
 FCX,Freeport-McMoRan,power_grid,Copper,stock,leader,Copper for grid buildout
 SCCO,Southern Copper,power_grid,Copper,stock,leader,Copper reserves
-FLNC,Fluence Energy,power_grid,Storage,stock,speculative,Grid batteries
-EOSE,Eos Energy,power_grid,Storage,stock,speculative,Zinc batteries; unprofitable
+FLNC,Fluence Energy,power_grid,Battery storage,stock,speculative,Grid batteries
+EOSE,Eos Energy,power_grid,Battery storage,stock,speculative,Zinc batteries; unprofitable
 ABBNY,ABB (ADR),power_grid,Electrical equipment,stock,leader,Electrification & motion
 SBGSY,Schneider Electric (ADR),power_grid,Electrical equipment,stock,leader,Data-center power & cooling
 ENR.DE,Siemens Energy,power_grid,Gas turbines & grid,stock,leader,Turbines + grid technology (EUR)
@@ -118,9 +118,9 @@ AMAT,Applied Materials,compute,Semicap,stock,leader,Deposition/etch
 LRCX,Lam Research,compute,Semicap,stock,leader,Etch/deposition; memory exposure
 KLAC,KLA,compute,Semicap,stock,leader,Process control
 MU,Micron Technology,compute,Memory,stock,leader,HBM + DRAM cycle
-SNDK,SanDisk,compute,Storage,stock,emerging,NAND flash (spun off 2025)
-WDC,Western Digital,compute,Storage,stock,emerging,HDD for AI data lakes
-STX,Seagate Technology,compute,Storage,stock,emerging,HDD (HAMR)
+SNDK,SanDisk,compute,Data storage,stock,emerging,NAND flash (spun off 2025)
+WDC,Western Digital,compute,Data storage,stock,emerging,HDD for AI data lakes
+STX,Seagate Technology,compute,Data storage,stock,emerging,HDD (HAMR)
 ANET,Arista Networks,compute,Networking,stock,leader,AI Ethernet switching
 CSCO,Cisco Systems,compute,Networking,stock,leader,Networking incumbent
 CRDO,Credo Technology,compute,Connectivity,stock,emerging,Active electrical cables / SerDes

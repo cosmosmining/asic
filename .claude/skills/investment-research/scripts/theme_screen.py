@@ -71,8 +71,11 @@ def main() -> int:
     ap.add_argument("--bench", default="SPY")
     ap.add_argument("--compare", nargs="*", default=["QQQ"], help="other benchmarks/ETFs to compare the basket with")
     ap.add_argument("--preset", default="balanced", choices=list(S.PRESETS))
+    ap.add_argument("--cache-dir", help="where downloaded prices are cached (default <tmp>/stockquant-cache)")
     ap.add_argument("--json")
     args = ap.parse_args()
+    if args.cache_dir:
+        os.environ["STOCKQUANT_CACHE"] = args.cache_dir
 
     store = PriceStore()
     names = list(dict.fromkeys(args.tickers))

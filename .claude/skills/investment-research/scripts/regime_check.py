@@ -54,8 +54,11 @@ def label(dd: float, above: bool, vix: float | None) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--extra", nargs="*", default=["SMH"], help="more tickers to include")
+    ap.add_argument("--cache-dir", help="where downloaded prices are cached (default <tmp>/stockquant-cache)")
     ap.add_argument("--json")
     args = ap.parse_args()
+    if args.cache_dir:
+        os.environ["STOCKQUANT_CACHE"] = args.cache_dir
     store = PriceStore()
     tick = list(dict.fromkeys(CORE + args.extra))
     px = store.prices(tick + SECTORS, calendar="SPY")

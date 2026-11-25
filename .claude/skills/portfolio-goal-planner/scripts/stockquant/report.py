@@ -118,6 +118,7 @@ def run_screens(px, close, volume, meta, fundamentals=None, bench="SPY") -> dict
 def run_theme_analysis(px: pd.DataFrame, meta: pd.DataFrame, lookback_days: int = 504) -> dict:
     ai = meta[meta["group"].isin(U.AI_GROUPS)]
     themes = {}
+    shared = ai.groupby("theme")["group"].nunique()
     for (group, theme), rows in ai.groupby(["group", "theme"]):
         members = [t for t in rows.index if t in px.columns]
         if len(members) < 2:
@@ -125,7 +126,9 @@ def run_theme_analysis(px: pd.DataFrame, meta: pd.DataFrame, lookback_days: int 
         idx = S.theme_index(px, members, min_members=min(2, len(members)))
         if len(idx) < 260:
             continue
-        themes[theme] = {"group": group, "members": members, "index": idx}
+        # A theme name used by two groups would otherwise overwrite one basket with the other.
+        key = theme if shared.get(theme, 1) == 1 else f"{theme} ({U.GROUP_LABELS.get(group, group)})"
+        themes[key] = {"group": group, "members": members, "index": idx}
     # Broad sleeves
     for group in U.AI_GROUPS:
         members = [t for t in U.tickers(group) if t in px.columns]

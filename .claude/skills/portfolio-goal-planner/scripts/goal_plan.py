@@ -51,13 +51,15 @@ from stockquant import history as Hs  # noqa: E402
 
 SHILLER = HERE.parent / "assets" / "shiller_sp500.csv"
 
+# Means are assumptions for planning, not forecasts. The last two are deliberately
+# generous "what if the bet works" cases; their high odds come from the inputs.
 DEFAULT_SCENARIOS = [
     ("Balanced 60/40 stocks/bonds", 0.070, 0.10),
     ("US stocks, cautious forecast", 0.065, 0.16),
     ("US stocks, long-run history", 0.118, 0.195),
     ("Nasdaq-100-like growth", 0.14, 0.24),
-    ("AI-infrastructure basket, optimistic", 0.20, 0.35),
-    ("Single high-flyer stock", 0.25, 0.60),
+    ("AI-infrastructure basket (assumed, optimistic)", 0.20, 0.35),
+    ("Single high-flyer stock (assumed)", 0.25, 0.60),
 ]
 
 
@@ -169,8 +171,11 @@ def main() -> int:
     ap.add_argument("--fee", type=float, default=0.0, help="yearly cost (expense ratio + advice), e.g. 0.002")
     ap.add_argument("--rf", type=float, default=0.035, help="cash yield for the Kelly calculation")
     ap.add_argument("--paths", type=int, default=20_000)
+    ap.add_argument("--cache-dir", help="where downloaded prices are cached (default <tmp>/stockquant-cache)")
     ap.add_argument("--json")
     a = ap.parse_args()
+    if a.cache_dir:
+        os.environ["STOCKQUANT_CACHE"] = a.cache_dir
 
     months = a.years * 12
     contrib = contributions(a.monthly, a.raise_pct, months)
@@ -245,6 +250,8 @@ def main() -> int:
               f"{pct(s['median_max_drawdown'], 0)} | {pct(s['prob_loss'], 0)} |")
     out["monte_carlo"] = rows
     print("\nTypical yearly = median compound return after volatility drag (mean minus about half the variance).")
+    print("Rows marked 'assumed' use made-up inputs for a bet that works out; their chance of the target reflects those inputs, "
+          "not evidence. Single stocks and themes can also go to zero, which a lognormal model understates.")
     if mix_hist is not None and len(mix_hist) < 25 * 12:
         print(f"Caution: your mix has only {len(mix_hist) / 12:.0f} years of history to replay. A short window that was mostly a bull market "
               "overstates the odds; compare it with the long-run rows and the 1926+ replay above.")

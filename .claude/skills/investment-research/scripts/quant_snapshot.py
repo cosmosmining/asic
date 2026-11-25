@@ -73,8 +73,11 @@ def main() -> int:
     ap.add_argument("--preset", default="balanced", choices=list(S.PRESETS))
     ap.add_argument("--years", type=float, default=5.0, help="window for CAGR/Sharpe/drawdown stats")
     ap.add_argument("--fundamentals", action="store_true", help="add yfinance valuation fields")
+    ap.add_argument("--cache-dir", help="where downloaded prices are cached (default <tmp>/stockquant-cache)")
     ap.add_argument("--json", help="also write results to this JSON file")
     args = ap.parse_args()
+    if args.cache_dir:
+        os.environ["STOCKQUANT_CACHE"] = args.cache_dir
 
     store = PriceStore()
     names = list(dict.fromkeys(args.tickers))
